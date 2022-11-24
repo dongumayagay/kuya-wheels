@@ -1,1 +1,8 @@
-<script>import "../app.postcss";</script><slot></slot>
+<script>
+	import Navbar from './Navbar.svelte';
+
+	// import '../app.postcss';
+</script>
+
+<Navbar />
+<slot />
