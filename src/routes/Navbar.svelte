@@ -2,7 +2,7 @@
 
 	<a href="/">Home</a>
 	<a href="/aboutus">About Us</a>
-	<a href="/book">Book</a>
+	<a href="/book">Booking</a>
 </nav>
 
 <style>
