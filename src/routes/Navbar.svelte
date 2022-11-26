@@ -7,7 +7,8 @@
 
 <style>
 	nav {
-		background-color: #cf332a;
+		background-color: rgb(58, 58, 58);
+		/* background-color: #cf332a; */
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-evenly;
