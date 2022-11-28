@@ -1,6 +1,7 @@
 <script>
 	import { db } from "$lib/firebase.js"
 	import { addDoc, collection, getDocs, where, query } from "firebase/firestore"
+	import { generateString, sendEmail } from "$lib/utils.js"
 	// function submitHandler(event) 
 	// 	const formData = new FormData(event.target);
 	// 	const data = Object.fromEntries(formData);
@@ -15,28 +16,49 @@
 	// let courses = ["Practical Driving 2", "Truck Parking", "Bus Parking"]
 	let coursetaken = ""
 	async function submitHandler() {
-
+		
 		const bookingsCol = collection(db, "bookings")
+
+		//Checking if data has already been booked
 		const q = query(bookingsCol, where("date", "==", date))
 		const querySnapshot = await getDocs(q)
-
-		if (querySnapshot.empty) {
-			const booking = {
-			firstname:fname, 
-			lastname:lname, 
-			middlename:mname,
-			contactnumber:cnumber,  
-			course:coursetaken, 
-			date:date, 
-			email:email
-			}
-			await addDoc(bookingsCol, booking)
-
-			alert("success???")
-		} else {
+		if (!querySnapshot.empty) {
 			alert("The date has already been booked")
-		}
+			return
+		} 
 
+		// Generates and sends an OTP code to the email
+		const randomcode = generateString(6)
+		await sendEmail({
+			to: email,
+			subject: 'Your OTP code',
+			html: `<h1>Your Kuya Wheels driving course OTP code is: ${randomcode} </h1>`
+		})
+
+		// Checks the OTP code
+		const input = prompt("Enter your OTP code")
+		if (!input) {
+			alert("Please try again")
+			return
+		}else if (randomcode != input) {
+			alert("Wrong Code")
+			return
+		}
+		
+
+		const booking = {
+		firstname:fname, 
+		lastname:lname, 
+		middlename:mname,
+		contactnumber:cnumber,  
+		course:coursetaken, 
+		date:date, 
+		email:email
+		}
+		await addDoc(bookingsCol, booking)
+
+		alert("Your reservation was booked successfully!")
+		
 	}
 </script>
 
