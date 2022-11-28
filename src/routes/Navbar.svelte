@@ -1,25 +1,32 @@
 <nav>
-
-	<a href="/">Home</a>
-	<a href="/aboutus">About Us</a>
-	<a href="/book">Book</a>
+	<div class="link-container">
+		<a href="/">Home</a>
+		<a href="/aboutus">About Us</a>
+		<a href="/book">Booking</a>
+	</div>
 </nav>
 
 <style>
 	nav {
-		background-color: #cf332a;
+		background-color: rgba(58, 58, 58);
+		/* background-color: #cf332a; */
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-evenly;
+		justify-content: flex-end;
 		padding: 0.5em;
+
 	}
-	a {
+	.link-container{
+		margin-right: 10px;
 		display: flex;
-		align-items: flex-end;
+		flex-direction: flex-end;
 		font-size: 1.3em;
-		font-family: fantasy;
-		color: whitesmoke;
+		/*font-family: fantasy; */
 		/* margin-right: 1.5em; */
+	}
+	a{
+		color: whitesmoke;
+		padding-left: 10px;
 	}
 	a:link {
 		text-decoration: none;

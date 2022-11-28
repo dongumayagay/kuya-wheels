@@ -8,7 +8,11 @@
 </script>
 
 <h1>Home page</h1>
-<button on:click={toggle}>toggle</button>
+
+<div>
+    <button on:click={toggle}>toggle</button>
+</div>
+
 <h1>{show}</h1>
 {#if show == true}
     <ExampleComponent></ExampleComponent>
@@ -16,3 +20,16 @@
     <h1>Esample</h1>
 {/if}
 
+<div id="heighttest">
+    <p>
+        Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena
+    </p>
+    
+</div>
+
+<style>
+    #heighttest {
+        border: 1px red solid;
+        height: 500px;
+    }
+</style>
