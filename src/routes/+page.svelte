@@ -20,7 +20,7 @@
     <h1>Esample</h1>
 {/if}
 
-<div id="heighttest">
+<div>
     <p>
         Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena
     </p>
@@ -28,8 +28,5 @@
 </div>
 
 <style>
-    #heighttest {
-        border: 1px red solid;
-        height: 500px;
-    }
+
 </style>

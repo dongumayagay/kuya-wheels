@@ -11,7 +11,11 @@ import Navbar from './Navbar.svelte';
 <Navbar />
 <slot />
 <Footer /> -->
-
+<svelte:head>
+	<title>
+		Kuya Wheels Driving School
+	</title>
+</svelte:head>
 <main>
 	<Navbar />
 	<Header />
