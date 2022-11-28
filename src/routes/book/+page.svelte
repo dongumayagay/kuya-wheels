@@ -1,6 +1,6 @@
 <script>
 	import { db } from "$lib/firebase.js"
-	import { addDoc, collection } from "firebase/firestore"
+	import { addDoc, collection, getDocs, where, query } from "firebase/firestore"
 	// function submitHandler(event) 
 	// 	const formData = new FormData(event.target);
 	// 	const data = Object.fromEntries(formData);
@@ -10,21 +10,33 @@
 	let lname = ""
 	let mname = ""
 	let cnumber = ""
+	let date = ""
 	let email = ""
 	// let courses = ["Practical Driving 2", "Truck Parking", "Bus Parking"]
 	let coursetaken = ""
 	async function submitHandler() {
-		const booking = {
+
+		const bookingsCol = collection(db, "bookings")
+		const q = query(bookingsCol, where("date", "==", date))
+		const querySnapshot = await getDocs(q)
+
+		if (querySnapshot.empty) {
+			const booking = {
 			firstname:fname, 
 			lastname:lname, 
 			middlename:mname,
 			contactnumber:cnumber,  
 			course:coursetaken, 
+			date:date, 
 			email:email
-		}
-		await addDoc(collection(db, "bookings"), booking)
+			}
+			await addDoc(bookingsCol, booking)
 
-		alert("success???")
+			alert("success???")
+		} else {
+			alert("The date has already been booked")
+		}
+
 	}
 </script>
 
@@ -80,7 +92,7 @@
 				</div>
 				<div class="column-input">
 					<label for="">Date</label>
-					<input type="date">
+					<input type="date" bind:value={date} required>
 				</div>
 			</div>
 			<div class="row-input">
