@@ -17,8 +17,8 @@ import Navbar from './Navbar.svelte';
 	</title>
 </svelte:head>
 <main>
-	<Navbar />
 	<Header />
+	<Navbar />
 	<!-- <hr> -->
 	<slot />
 	<Footer />

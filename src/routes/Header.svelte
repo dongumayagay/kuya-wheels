@@ -6,9 +6,9 @@
 <style>
 
     div {
-        /* background-image: url("/testbg.PNG");
+        background-image: url("/testbg.PNG");
         background-repeat: no-repeat;
-        background-size: cover; */
+        background-size: cover;
         background-color: rgba(0,0, 0,0);
         height: 150px;
         display: flex;
