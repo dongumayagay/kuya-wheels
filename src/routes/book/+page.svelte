@@ -105,30 +105,31 @@
 
 			<div class="row-input">
 				<div class="column-input">
+					<label for="">Email</label>
+					<input type="email" placeholder="Enter your Email" bind:value={email} required>
+				</div>
+				<div class="column-input">
+					<label for="">Date</label>
+					<input type="date" bind:value={date} required style="width:168px;">
+				</div>
+				
+			</div>
+			<div class="row-input">
+				<div class="column-input">
 					<label for="cars">Courses:</label>
-					<select name="course" bind:value={coursetaken}>
+					<select name="course" bind:value={coursetaken} required style="width:189px;height:36px;">
 						<option value="Practical Driving 2">Practical Driving 2</option>
 						<option value="Truck Parking">Truck Parking</option>
 						<option value="Bus Parking">Bus Parking</option>
 					</select>
 				</div>
-				<div class="column-input">
-					<label for="">Date</label>
-					<input type="date" bind:value={date} required>
-				</div>
-			</div>
-			<div class="row-input">
-				<div class="column-input">
-					<label for="">Email</label>
-					<input type="email" placeholder="Enter your Email" bind:value={email} required>
-					
-				</div>
 
 			</div>
 		</div>
-		{#if fname.length<5}
+		<!-- {#if fname.length<5}
 		<p>no no no</p>
-		{/if}
+		{/if} -->
+		<br>
 		<button>Submit</button>
 
 	</div>
@@ -190,10 +191,11 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 		margin-top: 10px;
 	}
 	.column-input{
+		margin-right: 15px;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
