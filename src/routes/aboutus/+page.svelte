@@ -9,7 +9,7 @@
 	</div>
 	<div id="profileInfo">
 		<h2>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit
+			Client
 		</h2>
 		<p>
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem totam adipisci qui odio labore voluptatem est neque veniam vel facere quasi magnam perferendis natus obcaecati ex asperiores maiores, soluta nesciunt. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae quas magni modi voluptatibus placeat iusto sed pariatur repudiandae autem maiores rem earum nobis, assumenda cumque. Ipsa omnis sequi dolores quam.
@@ -34,7 +34,7 @@
 			EMAIL: <br>kuyawheelsmain@gmail.com
 		</p>
 		<p>
-			FOLLOW US: <br> <a href="https://www.facebook.com/KuyaWheelsDrivingSchool">https://www.facebook.com/KuyaWheelsDrivingSchool/</a>
+			FOLLOW US: <br> <a href="https://www.facebook.com/KuyaWheelsDrivingSchool" target="_blank" rel="noopener noreferrer"> <img src="/facebook.png" alt="Kuya Wheels Facebook" style="width:30px;"></a>
 		</p>
 	</div>
 	<div id="aboutPanel">
