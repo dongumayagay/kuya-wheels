@@ -1,6 +1,6 @@
 <div>
     <img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
-    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. </h1>
+    <h1>Kuya Wheels Driving School</h1>
 </div>
 
 <style>
