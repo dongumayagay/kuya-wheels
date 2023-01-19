@@ -9,7 +9,7 @@
 
 <h1>Home page</h1>
 
-<div>
+<!-- <div>
     <button on:click={toggle}>toggle</button>
 </div>
 
@@ -25,7 +25,7 @@
         Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena
     </p>
     
-</div>
+</div> -->
 
 <style>
 
