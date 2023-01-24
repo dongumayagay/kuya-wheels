@@ -39,7 +39,7 @@
 	</div>
 	<div id="aboutPanel">
 		<div id="aboutCompany">
-			<h3>About Kuya wheels driving school</h3>
+			<h3>About Kuya Wheels Driving School</h3>
 			<p>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi rem voluptatem quae aut sequi? Esse ad cumque similique porro, adipisci minus natus officiis quam? Aspernatur qui quasi repellat corrupti itaque. lor
 			</p>
