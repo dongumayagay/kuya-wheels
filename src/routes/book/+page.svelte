@@ -64,7 +64,7 @@
 
 
 <form on:submit|preventDefault={submitHandler}>
-	<!-- <input type="text" name="name" placeholder="enter your full name" required />
+	<!-- <input type="text" name="name" placeholder="enter your full name" required />;
 	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
 		<h1>Available Course/s:</h1>
