@@ -9,24 +9,17 @@
 
 <h1>Home page</h1>
 
-<!-- <div>
-    <button on:click={toggle}>toggle</button>
-</div>
-
-<h1>{show}</h1>
-{#if show == true}
-    <ExampleComponent></ExampleComponent>
-    {:else}
-    <h1>Esample</h1>
-{/if}
-
 <div>
     <p>
         Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena Kyle Deinyel Basquena
     </p>
     
-</div> -->
+</div>
 
 <style>
+
+	h1{
+		text-align: center;
+	}
 
 </style>

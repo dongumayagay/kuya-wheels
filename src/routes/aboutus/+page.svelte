@@ -5,27 +5,32 @@
 <!-- Contact Page -->
 <div id="profileForm">
 	<div id="profilePicture">
-		<img src="/KWDSicon.png" alt="">
+		<img src="/proof1.jpg" alt="">
 	</div>
 	<div id="profileInfo">
 		<h2>
-			Client
+			About Kuya Wheels Driving School and your Instructor
 		</h2>
 		<p>
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem totam adipisci qui odio labore voluptatem est neque veniam vel facere quasi magnam perferendis natus obcaecati ex asperiores maiores, soluta nesciunt. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae quas magni modi voluptatibus placeat iusto sed pariatur repudiandae autem maiores rem earum nobis, assumenda cumque. Ipsa omnis sequi dolores quam.
+			The owner and driving instructor of Kuya Wheels Driving School is Joselito A. Balagbis, commonly referred to 
+			by friends as "Kuya Joy". His career in the automotive industry started in 1994 when he became a Stencil Boy for 
+			one of the branches of the Land Transportation Office of the Philippines and worked his way up to 
+			finally become an Admin Officer for the LTO. Mr. Balagbis established Kuya Wheels driving 
+			school in December 8, 2020 because of his desire to properly teach aspiring drivers the necessary information 
+			they need before getting on the road.
 		</p>
 	</div>
 </div>
 <!-- <hr> -->
 <div id="contactForm">
 	<div id="contactInfo">
-		<h3>Want to connect with us?</h3>
+		<h3>CONNECT WITH US!</h3>
 		<hr>
 		<p>
 			ADDRESS: <br>2nd Floor Harmony Village Mall Left Side Entrance Olympia Street, San Pedro, Laguna
 		</p>
 		<p>
-			CONTACTS: <br>+63 969 476 3734 | +63 992 320 9710 | +63 915 977 7958
+			CONTACTS: <br>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958
 		</p>
 		<p>
 			TELEPHONE: <br>(02) 877-73441
@@ -37,15 +42,13 @@
 			FOLLOW US: <br> <a href="https://www.facebook.com/KuyaWheelsDrivingSchool" target="_blank" rel="noopener noreferrer"> <img src="/facebook.png" alt="Kuya Wheels Facebook" style="width:30px;"></a>
 		</p>
 	</div>
+	
 	<div id="aboutPanel">
 		<div id="aboutCompany">
-			<h3>About Kuya Wheels Driving School</h3>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi rem voluptatem quae aut sequi? Esse ad cumque similique porro, adipisci minus natus officiis quam? Aspernatur qui quasi repellat corrupti itaque. lor
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur eaque cupiditate accusantium nihil dolore itaque culpa tenetur quo neque, non minima quos mollitia, in veritatis veniam a temporibus, facilis nulla!
-			</p>
+			<h4>Our Certifications and Accreditations</h4>
+			<div id="certs">
+				<img src="/cert1.jpg" alt="">
+			</div>
 		</div>
 		<div id="reminderMess">
 			<h2>Learning to drive isn't only to know how to handle a car, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
@@ -107,8 +110,16 @@
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+	h2{
+		text-align: center;
+		font-size: 2em;
+	}
 	h3{
 		text-align: center;
+	}
+	h4{
+		text-align: center;
+		font-size: 2em;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);
@@ -122,6 +133,10 @@
 	}
 	#aboutCompany{
 		padding: 20px;
+	}
+	#certs{
+		display: flex;
+		flex-direction: column;
 	}
 	#reminderMess{
 		border: 4px dashed #ff944d;
