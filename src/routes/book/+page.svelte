@@ -68,10 +68,12 @@
 	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
 		<h1>Available Course/s:</h1>
-		<p> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
-			3,500kg but not exceeding 12,000kg.
-		</p>
-		<p>More courses coming soon so stay tuned!</p>	
+		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
+			3,500kg but not exceeding 12,000kg.<br><br>
+			Requirements to bring:<br>
+			- Ballpen<br>- Notebook<br>- 1pc 2x2 picture<br>- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a period of at least one (1) year prior to the application<br><br>
+			More courses coming soon so stay tuned!
+			</h2>
 	</div>
 
 	<div id="aform">
@@ -146,8 +148,14 @@
 		padding: 30px;
 
 	}
+	h1{
+		font-size: 3em;
+	}
+	h2{
+		font-size: 1.3em;
+	}
 	.courses{
-		width: 40%;
+		width: 50%;
 		display: flex;
 		flex-direction: column;
 	}

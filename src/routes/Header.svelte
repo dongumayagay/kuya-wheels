@@ -1,6 +1,7 @@
 <div>
     <img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
     <h1>Kuya Wheels Driving School</h1>
+    <img src="/lto.png" alt="LTO logo" id="lto">
 </div>
 
 <style>
@@ -12,8 +13,9 @@
         background-color: rgba(0,0, 0,0);
         height: 150px;
         display: flex;
+
     }
-    img {
+    #logo{
         width: 250px;
         height: 95%;
         /* height: 25%; */
