@@ -1,8 +1,8 @@
 <nav>
 	<div class="link-container">
-		<a href="/">Home</a>
-		<a href="/aboutus">About Us</a>
-		<a href="/book">Booking</a>
+		<a href="/">| Home </a>
+		<a href="/aboutus">| About Us |</a>
+		<a href="/book"> Booking |</a>
 	</div>
 </nav>
 

@@ -2,7 +2,7 @@
 <footer>
     <div>
         <h1>
-            This is a footer
+            Click "Booking" to book an appointment for your chosen course now!
         </h1>
     </div>
     
@@ -13,7 +13,7 @@
         margin: 0;
     }
     h1 {
-        color: rgb(197, 197, 197);
+        color: rgb(255, 132, 50);
     }
     footer {
         margin-top: auto;
