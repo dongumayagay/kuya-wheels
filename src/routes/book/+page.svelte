@@ -23,7 +23,7 @@
 		const q = query(bookingsCol, where("date", "==", date))
 		const querySnapshot = await getDocs(q)
 		if (!querySnapshot.empty) {
-			alert("The date has already been booked")
+			alert("The date you have chosen has already been booked")
 			return
 		} 
 
@@ -32,11 +32,11 @@
 		await sendEmail({
 			to: email,
 			subject: 'Your OTP code',
-			html: `<h1>Your Kuya Wheels driving course OTP code is: ${randomcode} </h1>`
+			html: `<h1>Your Kuya Wheels Driving Course OTP is: ${randomcode} </h1>`
 		})
 
 		// Checks the OTP code
-		const input = prompt("Enter your OTP code")
+		const input = prompt("Enter the OTP that we sent to your email")
 		if (!input) {
 			alert("Please try again")
 			return
@@ -67,11 +67,11 @@
 	<!-- <input type="text" name="name" placeholder="enter your full name" required />
 	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
-		<h1>Course</h1>
-		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae exercitationem soluta cupiditate est. Vitae, vel! Enim magnam iste inventore ipsa et sapiente, recusandae aperiam. Nostrum inventore aperiam vero dolorum dolorem.</p>
-		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae exercitationem soluta cupiditate est. Vitae, vel! Enim magnam iste inventore ipsa et sapiente, recusandae aperiam. Nostrum inventore aperiam vero dolorum dolorem.</p>	
-		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae exercitationem soluta cupiditate est. Vitae, vel! Enim magnam iste inventore ipsa et sapiente, recusandae aperiam. Nostrum inventore aperiam vero dolorum dolorem.</p>	
-		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae exercitationem soluta cupiditate est. Vitae, vel! Enim magnam iste inventore ipsa et sapiente, recusandae aperiam. Nostrum inventore aperiam vero dolorum dolorem.</p>	
+		<h1>Available Course/s:</h1>
+		<p> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
+			3,500kg but not exceeding 12,000kg.
+		</p>
+		<p>More courses coming soon so stay tuned!</p>	
 	</div>
 
 	<div id="aform">
@@ -94,8 +94,8 @@
 
 			<div class="row-input">
 				<div class="column-input">
-					<label for="">Middle Name</label>
-					<input type="text" placeholder="Enter your middle name" bind:value={mname} required>
+					<label for="">Middle Name (Optional)</label>
+					<input type="text" placeholder="Enter your middle name" bind:value={mname}>
 				</div>
 				<div class="column-input">
 					<label for="">Contact Number</label>
@@ -105,18 +105,18 @@
 
 			<div class="row-input">
 				<div class="column-input">
-					<label for="">Email</label>
+					<label for="">Email Address</label>
 					<input type="email" placeholder="Enter your Email" bind:value={email} required>
 				</div>
 				<div class="column-input">
-					<label for="">Date</label>
+					<label for="">Appointment Date</label>
 					<input type="date" bind:value={date} required style="width:168px;">
 				</div>
 				
 			</div>
 			<div class="row-input">
 				<div class="column-input">
-					<label for="cars">Courses:</label>
+					<label for="cars">Course to take:</label>
 					<select name="course" bind:value={coursetaken} required style="width:189px;height:36px;">
 						<option value="Practical Driving 2">Practical Driving 2</option>
 						<option value="Truck Parking">Truck Parking</option>

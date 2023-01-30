@@ -46,12 +46,21 @@
 	<div id="aboutPanel">
 		<div id="aboutCompany">
 			<h4>Our Certifications and Accreditations</h4>
-			<div id="certs">
-				<img src="/cert1.jpg" alt="">
-			</div>
+			<h5>
+				Throughout the course of his career, Mr. Balagbis obtained his knowledge by taking the appropriate TESDA courses
+				and passing every one of them with flying colors. His ever-expanding arsenal of National Certificates are proof of his 
+				dedication to his craft. These are:
+				</h5>
+			<h6>
+				- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
+				- NC III in DRIVING (ARTICULATED VEHICLE)<br>- NC III in AUTOMOTIVE SERVICING<br>- NC II in AUTOMOTIVE SERVICING (CHASSIS REPAIR)<br>
+				- NC II in AUTOMOTIVE SERVICING (ELECTRICAL REPAIR)<br>- NC II in AUTOMOTIVE SERVICING (ENGINE REPAIR)<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING NC II<br>
+				- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING (PASSENGER BUS/STRAIGHT TRUCK) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (CHASSIS REPAIR) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>
+				- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>- TRAINERS METHODOLOGY CERTIFICATE I
+			</h6>
 		</div>
 		<div id="reminderMess">
-			<h2>Learning to drive isn't only to know how to handle a car, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
+			<h2>Learning to drive isn't only to know how to handle a vehicle, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
 		</div>
 	</div>
 	
@@ -97,7 +106,12 @@
 	}
 	#contactInfo, #aboutCompany{
 		padding: 10px;
+		background-color: rgba(0,0,0,0.8);
 		/* border: 1px solid yellow; */
+	}
+	#certs{
+		display: flex;
+		flex-direction: column;
 	}
 	#contactInfo{
 		background-color:rgba(255, 255, 255, 0.1);
@@ -112,7 +126,7 @@
 	}
 	h2{
 		text-align: center;
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 	h3{
 		text-align: center;
@@ -120,6 +134,13 @@
 	h4{
 		text-align: center;
 		font-size: 2em;
+	}
+	h5{
+		font-size: 1em;
+	}
+	h6{
+		text-align: left;
+		font-size: 1em;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);
@@ -133,6 +154,10 @@
 	}
 	#aboutCompany{
 		padding: 20px;
+		text-align: center;
+		color: white;
+		display: flex;
+		flex-direction: column;
 	}
 	#certs{
 		display: flex;
