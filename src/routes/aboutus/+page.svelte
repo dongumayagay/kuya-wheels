@@ -133,11 +133,11 @@
 		font-size: 2em;
 	}
 	h5{
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 	h6{
 		text-align: left;
-		font-size: 1em;
+		font-size: 1.4em;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);

@@ -10,10 +10,7 @@
 <h1>WELCOME TO OUR OFFICIAL WEBSITE!</h1>
 
 <div id="Form1">
-	<div id="Picture1">
-		<img src="/proof2.jpg" alt="proof2" id="proof2">
-        <img src="/proof3.jpg" alt="proof3" id="proof3">
-	</div>
+	
 	<div id="profileInfo">
 		<h2>
 			Kuya Wheels Driving School offers driving education that you can count on!
@@ -22,6 +19,11 @@
 			Since the driving school's founding in 2020, top-notch education and instruction has always been delivered to its students. 
             Everyone goes through the proper process of learning what they need to know.
         </h3>
+		<div id="Pictures">
+			<img src="/proof2.jpg" alt="proof2" id="proof2">
+			<img src="/proof3.jpg" alt="proof3" id="proof3">
+			<img src="/proof4.jpg" alt="proof4" id="proof4">
+		</div>
 	</div>
 </div>
 
@@ -42,12 +44,17 @@
         text-align: center;
     }
     #proof2{
-		width: 450px;
+		width: 425px;
 		height: 350px;
         border-radius: 10px;
 	}
     #proof3{
-		width: 450px;
+		width: 425px;
+		height: 350px;
+        border-radius: 10px;
+	}
+	#proof4{
+		width: 425px;
 		height: 350px;
         border-radius: 10px;
 	}
@@ -57,7 +64,7 @@
 		display: flex;
 		flex-direction: row;
 	}
-	#profileInfo, #Picture1 {
+	#profileInfo, #Pictures {
 		background-color: rgba(0,0,0,0.8);
 	}
 	#profileInfo{
@@ -71,7 +78,7 @@
 		display: flex;
 		flex-direction: column;
 	}
-	#Picture1{
+	#Pictures{
         padding: 10px;
 		border-top-left-radius: 8px;
 		border-bottom-left-radius: 8px;
