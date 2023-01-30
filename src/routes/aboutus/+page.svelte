@@ -107,11 +107,8 @@
 	#contactInfo, #aboutCompany{
 		padding: 10px;
 		background-color: rgba(0,0,0,0.8);
+		border-radius: 8px;
 		/* border: 1px solid yellow; */
-	}
-	#certs{
-		display: flex;
-		flex-direction: column;
 	}
 	#contactInfo{
 		background-color:rgba(255, 255, 255, 0.1);
@@ -156,10 +153,6 @@
 		padding: 20px;
 		text-align: center;
 		color: white;
-		display: flex;
-		flex-direction: column;
-	}
-	#certs{
 		display: flex;
 		flex-direction: column;
 	}
