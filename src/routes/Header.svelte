@@ -20,8 +20,7 @@
     }
 
     h1{
-        font-size: 2em;
-        padding: 10px;
+        font-size: 3em;
     }
 /*     // experminted media query
     @media screen and (max-width: 500px) {
