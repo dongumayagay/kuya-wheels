@@ -51,6 +51,6 @@
     or
     <button on:click={gotoPayment}>Generate payment link again</button>
 {/if}
-<!-- <dialog open>
-    <p>waiting for payment</p>
-</dialog> -->
+{#if data.booking.isDownpaymentPaid === true}
+    <p>You're paid and expected to come at this date {data.booking.date}</p>
+{/if}
