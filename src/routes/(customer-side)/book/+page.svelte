@@ -1,8 +1,9 @@
 <script>
 	import { db } from "$lib/firebase.js"
-	import { addDoc, collection, getDocs, where, query } from "firebase/firestore"
+	import { addDoc, collection, getDocs, where, query, getCountFromServer } from "firebase/firestore"
 	import { generateString, sendEmail } from "$lib/utils.js"
 	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	// function submitHandler(event) 
 	// 	const formData = new FormData(event.target);
 	// 	const data = Object.fromEntries(formData);
@@ -36,9 +37,9 @@
 
 		//Checking if data has already been booked
 		const q = query(bookingsCol, where("date", "==", date))
-		const querySnapshot = await getDocs(q)
-		if (!querySnapshot.empty) {
-			alert("The date you have chosen has already been booked")
+		const snapshot = await getCountFromServer(q)
+		if (snapshot.data().count >= 10) {
+			alert("The date has already been fully booked")
 			return
 		} 
 		await sendOtp()
@@ -64,6 +65,11 @@
 		paymentReferrencenumber:""
 		}
 		const createdBooking = await addDoc(bookingsCol, booking)
+		await sendEmail({
+			to: email,
+			subject: 'Appointment Status Link',
+			html: `<a href="${$page.url.origin}/book/${createdBooking.id}">Click Here</a>`
+		})
 		goto("/book/"+createdBooking.id)
 		// alert("Your reservation was booked successfully!")
 		
