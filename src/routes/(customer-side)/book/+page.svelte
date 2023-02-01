@@ -2,6 +2,7 @@
 	import { db } from "$lib/firebase.js"
 	import { addDoc, collection, getDocs, where, query } from "firebase/firestore"
 	import { generateString, sendEmail } from "$lib/utils.js"
+	import { goto } from '$app/navigation'
 	// function submitHandler(event) 
 	// 	const formData = new FormData(event.target);
 	// 	const data = Object.fromEntries(formData);
@@ -61,9 +62,9 @@
 		email:email,
 		isDownpaymentPaid:false
 		}
-		await addDoc(bookingsCol, booking)
-
-		alert("Your reservation was booked successfully!")
+		const createdBooking = await addDoc(bookingsCol, booking)
+		goto("/book/"+createdBooking.id)
+		// alert("Your reservation was booked successfully!")
 		
 	}
 </script>
