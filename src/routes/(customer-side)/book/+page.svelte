@@ -15,9 +15,23 @@
 	let email = ""
 	// let courses = ["Practical Driving 2", "Truck Parking", "Bus Parking"]
 	let coursetaken = ""
-	async function submitHandler() {
-		
-		const bookingsCol = collection(db, "bookings")
+	let showOtpInput = false
+	let randomcode
+	let otpGuessinput
+
+	const bookingsCol = collection(db, "bookings")
+
+	async function sendOtp() {
+	
+		// Generates and sends an OTP code to the email
+		randomcode = generateString(6)
+		await sendEmail({
+			to: email,
+			subject: 'Your OTP code',
+			html: `<h1>Your Kuya Wheels Driving Course OTP is: ${randomcode} </h1>`
+		})
+	}
+	async function checkifDatebooked() {
 
 		//Checking if data has already been booked
 		const q = query(bookingsCol, where("date", "==", date))
@@ -26,26 +40,17 @@
 			alert("The date you have chosen has already been booked")
 			return
 		} 
-
-		// Generates and sends an OTP code to the email
-		const randomcode = generateString(6)
-		await sendEmail({
-			to: email,
-			subject: 'Your OTP code',
-			html: `<h1>Your Kuya Wheels Driving Course OTP is: ${randomcode} </h1>`
-		})
-
-		// Checks the OTP code
-		const input = prompt("Enter the OTP that we sent to your email")
-		if (!input) {
-			alert("Please try again")
-			return
-		}else if (randomcode != input) {
-			alert("Wrong Code")
+		await sendOtp()
+		showOtpInput = true
+	}
+	async function checkOtp() {
+		if (randomcode !== otpGuessinput){
+			alert("Wrong OTP code")
 			return
 		}
-		
-
+		await createBooking()
+	}
+	async function createBooking() {
 		const booking = {
 		firstname:fname, 
 		lastname:lname, 
@@ -53,7 +58,8 @@
 		contactnumber:cnumber,  
 		course:coursetaken, 
 		date:date, 
-		email:email
+		email:email,
+		isDownpaymentPaid:false
 		}
 		await addDoc(bookingsCol, booking)
 
@@ -63,7 +69,7 @@
 </script>
 
 
-<form on:submit|preventDefault={submitHandler}>
+<form on:submit|preventDefault={checkifDatebooked}>
 	<!-- <input type="text" name="name" placeholder="enter your full name" required />;
 	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
@@ -138,6 +144,16 @@
 	
 	
 </form>
+
+<dialog open={showOtpInput}>
+	<h1>
+		hellow world
+	</h1>
+	<form on:submit|preventDefault={checkOtp}>
+		<input type="text" bind:value={otpGuessinput} required>
+		<button>submit</button>
+	</form>
+</dialog>
 
 <style>
 	form{

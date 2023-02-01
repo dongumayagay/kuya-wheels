@@ -1,5 +1,10 @@
 <script>
     import { userStore } from '$lib/store.js'
+    import { goto } from '$app/navigation'
+
+    $:if( $userStore === null)
+    goto("/")
+
 </script>
 
 {#if $userStore === undefined}
