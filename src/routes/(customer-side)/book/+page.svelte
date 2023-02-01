@@ -60,7 +60,8 @@
 		course:coursetaken, 
 		date:date, 
 		email:email,
-		isDownpaymentPaid:false
+		isDownpaymentPaid:false,
+		paymentReferrencenumber:""
 		}
 		const createdBooking = await addDoc(bookingsCol, booking)
 		goto("/book/"+createdBooking.id)
