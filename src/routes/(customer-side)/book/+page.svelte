@@ -51,6 +51,7 @@
 			return
 		}
 		await createBooking()
+		showOtpInput = false
 	}
 	async function createBooking() {
 		const booking = {
@@ -126,14 +127,14 @@
 				</div>
 				<div class="column-input">
 					<label for="">Appointment Date</label>
-					<input type="date" bind:value={date} required style="width:168px;">
+					<input type="date" bind:value={date} required>
 				</div>
 				
 			</div>
 			<div class="row-input">
 				<div class="column-input">
 					<label for="cars">Course to take:</label>
-					<select name="course" bind:value={coursetaken} required style="width:189px;height:36px;">
+					<select name="course" bind:value={coursetaken} required>
 						<option value="Practical Driving 2">Practical Driving 2</option>
 						<option value="Truck Parking">Truck Parking</option>
 						<option value="Bus Parking">Bus Parking</option>
@@ -146,23 +147,28 @@
 		<p>no no no</p>
 		{/if} -->
 		<br>
-		<button>Submit</button>
-
+		{#if showOtpInput === false}
+			<button>Submit</button>
+		{/if}
+		{#if showOtpInput === true}
+			<p>Please input the OTP code sent to your provided Email</p>
+			<form on:submit|preventDefault={checkOtp}>
+				<input type="text" bind:value={otpGuessinput} required>
+				<button>submit</button>
+			</form>
+		{/if}
+		<!-- <br>
+		<button>Submit</button> -->
 	</div>
-	
-	
 </form>
-
-<dialog open={showOtpInput}>
-	<h1>
-		hellow world
-	</h1>
-	<form on:submit|preventDefault={checkOtp}>
-		<input type="text" bind:value={otpGuessinput} required>
-		<button>submit</button>
-	</form>
-</dialog>
-
+<!-- <dialog open={showOtpInput}> -->
+	<!-- <dialog open>
+		<p>Please input the OTP code sent to your provided Email</p>
+		<form on:submit|preventDefault={checkOtp}>
+			<input type="text" bind:value={otpGuessinput} required>
+			<button>submit</button>
+		</form>
+	</dialog> -->
 <style>
 	form{
 		
@@ -190,7 +196,7 @@
 		flex-direction: column;
 		align-items: center;
 
-		width: 40%;
+		width: 560px;
 		padding: 10px;
 		
 		border-radius: 10px;
@@ -227,7 +233,7 @@
 		margin-top: 10px;
 	}
 	.column-input{
-		margin-right: 15px;
+		margin-right: 30px;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -236,8 +242,10 @@
 		font-family: 'Oswald';
 		font-weight: 300;
 	}
-	input {
-		height: 20px;
+	select, input {
+		margin: 5px;
+		width: 200px;
+		width: 100%;
 		padding: 8px;	
 	}
 	
