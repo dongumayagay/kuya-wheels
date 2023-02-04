@@ -1,7 +1,9 @@
 <script>
 	import { db } from "$lib/firebase.js"
-	import { addDoc, collection, getDocs, where, query } from "firebase/firestore"
+	import { addDoc, collection, getDocs, where, query, getCountFromServer } from "firebase/firestore"
 	import { generateString, sendEmail } from "$lib/utils.js"
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	// function submitHandler(event) 
 	// 	const formData = new FormData(event.target);
 	// 	const data = Object.fromEntries(formData);
@@ -15,37 +17,43 @@
 	let email = ""
 	// let courses = ["Practical Driving 2", "Truck Parking", "Bus Parking"]
 	let coursetaken = ""
-	async function submitHandler() {
-		
-		const bookingsCol = collection(db, "bookings")
+	let showOtpInput = false
+	let randomcode
+	let otpGuessinput
 
-		//Checking if data has already been booked
-		const q = query(bookingsCol, where("date", "==", date))
-		const querySnapshot = await getDocs(q)
-		if (!querySnapshot.empty) {
-			alert("The date you have chosen has already been booked")
-			return
-		} 
+	const bookingsCol = collection(db, "bookings")
 
+	async function sendOtp() {
+	
 		// Generates and sends an OTP code to the email
-		const randomcode = generateString(6)
+		randomcode = generateString(6)
 		await sendEmail({
 			to: email,
 			subject: 'Your OTP code',
 			html: `<h1>Your Kuya Wheels Driving Course OTP is: ${randomcode} </h1>`
 		})
+	}
+	async function checkifDatebooked() {
 
-		// Checks the OTP code
-		const input = prompt("Enter the OTP that we sent to your email")
-		if (!input) {
-			alert("Please try again")
+		//Checking if data has already been booked
+		const q = query(bookingsCol, where("date", "==", date))
+		const snapshot = await getCountFromServer(q)
+		if (snapshot.data().count >= 10) {
+			alert("The date has already been fully booked")
 			return
-		}else if (randomcode != input) {
-			alert("Wrong Code")
+		} 
+		await sendOtp()
+		showOtpInput = true
+	}
+	async function checkOtp() {
+		if (randomcode !== otpGuessinput){
+			alert("Wrong OTP code")
 			return
 		}
-		
-
+		await createBooking()
+		showOtpInput = false
+	}
+	async function createBooking() {
 		const booking = {
 		firstname:fname, 
 		lastname:lname, 
@@ -53,18 +61,25 @@
 		contactnumber:cnumber,  
 		course:coursetaken, 
 		date:date, 
-		email:email
+		email:email,
+		isDownpaymentPaid:false,
+		paymentReferrencenumber:""
 		}
-		await addDoc(bookingsCol, booking)
-
-		alert("Your reservation was booked successfully!")
+		const createdBooking = await addDoc(bookingsCol, booking)
+		await sendEmail({
+			to: email,
+			subject: 'Appointment Status Link',
+			html: `<a href="${$page.url.origin}/book/${createdBooking.id}">Click Here</a>`
+		})
+		goto("/book/"+createdBooking.id)
+		// alert("Your reservation was booked successfully!")
 		
 	}
 </script>
 
 
-<form on:submit|preventDefault={submitHandler}>
-	<!-- <input type="text" name="name" placeholder="enter your full name" required />
+<form on:submit|preventDefault={checkifDatebooked}>
+	<!-- <input type="text" name="name" placeholder="enter your full name" required />;
 	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
 		<h1>Available Course/s:</h1>
@@ -112,14 +127,14 @@
 				</div>
 				<div class="column-input">
 					<label for="">Appointment Date</label>
-					<input type="date" bind:value={date} required style="width:168px;">
+					<input type="date" bind:value={date} required>
 				</div>
 				
 			</div>
 			<div class="row-input">
 				<div class="column-input">
 					<label for="cars">Course to take:</label>
-					<select name="course" bind:value={coursetaken} required style="width:189px;height:36px;">
+					<select name="course" bind:value={coursetaken} required>
 						<option value="Practical Driving 2">Practical Driving 2</option>
 						<option value="Truck Parking">Truck Parking</option>
 						<option value="Bus Parking">Bus Parking</option>
@@ -132,13 +147,28 @@
 		<p>no no no</p>
 		{/if} -->
 		<br>
-		<button>Submit</button>
-
+		{#if showOtpInput === false}
+			<button>Submit</button>
+		{/if}
+		{#if showOtpInput === true}
+			<p>Please input the OTP code sent to your provided Email</p>
+			<form on:submit|preventDefault={checkOtp}>
+				<input type="text" bind:value={otpGuessinput} required>
+				<button>submit</button>
+			</form>
+		{/if}
+		<!-- <br>
+		<button>Submit</button> -->
 	</div>
-	
-	
 </form>
-
+<!-- <dialog open={showOtpInput}> -->
+	<!-- <dialog open>
+		<p>Please input the OTP code sent to your provided Email</p>
+		<form on:submit|preventDefault={checkOtp}>
+			<input type="text" bind:value={otpGuessinput} required>
+			<button>submit</button>
+		</form>
+	</dialog> -->
 <style>
 	form{
 		
@@ -166,7 +196,7 @@
 		flex-direction: column;
 		align-items: center;
 
-		width: 40%;
+		width: 560px;
 		padding: 10px;
 		
 		border-radius: 10px;
@@ -203,7 +233,7 @@
 		margin-top: 10px;
 	}
 	.column-input{
-		margin-right: 15px;
+		margin-right: 30px;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -212,8 +242,10 @@
 		font-family: 'Oswald';
 		font-weight: 300;
 	}
-	input {
-		height: 20px;
+	select, input {
+		margin: 5px;
+		width: 200px;
+		width: 100%;
 		padding: 8px;	
 	}
 	

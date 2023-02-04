@@ -45,19 +45,23 @@
 	
 	<div id="aboutPanel">
 		<div id="aboutCompany">
-			<h4>Our Certifications and Accreditations</h4>
+			<div id="aboutLogo">
+				<img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
+				<h4>Our Certifications and Accreditations</h4>
+				<img src="/lto.png" alt="LTO logo" id="lto">
+			</div>
 			<h5>
 				Throughout the course of his career, Mr. Balagbis obtained his knowledge by taking the appropriate TESDA courses
 				and passing every one of them with flying colors. His ever-expanding arsenal of National Certificates are proof of his 
 				dedication to his craft. These are:
 				</h5>
-			<h6>
+			<p>
 				- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
 				- NC III in DRIVING (ARTICULATED VEHICLE)<br>- NC III in AUTOMOTIVE SERVICING<br>- NC II in AUTOMOTIVE SERVICING (CHASSIS REPAIR)<br>
 				- NC II in AUTOMOTIVE SERVICING (ELECTRICAL REPAIR)<br>- NC II in AUTOMOTIVE SERVICING (ENGINE REPAIR)<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING NC II<br>
 				- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING (PASSENGER BUS/STRAIGHT TRUCK) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (CHASSIS REPAIR) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>
 				- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>- TRAINERS METHODOLOGY CERTIFICATE I
-			</h6>
+			</p>
 		</div>
 		<div id="reminderMess">
 			<h2>Learning to drive isn't only to know how to handle a vehicle, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
@@ -121,6 +125,19 @@
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+	#aboutLogo {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+	#logo{
+		width: 200px;
+		height: 120px;
+	}
+	#lto {
+		width: 120px;
+		height: 120px;
+	}
 	h2{
 		text-align: center;
 		font-size: 1.5em;
@@ -133,11 +150,11 @@
 		font-size: 2em;
 	}
 	h5{
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 	h6{
 		text-align: left;
-		font-size: 1em;
+		font-size: 1.4em;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);
@@ -155,6 +172,7 @@
 		color: white;
 		display: flex;
 		flex-direction: column;
+		margin-bottom: 20px;
 	}
 	#reminderMess{
 		border: 4px dashed #ff944d;
