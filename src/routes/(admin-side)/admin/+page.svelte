@@ -13,7 +13,7 @@
     }
 </script>
 
-<h1>admin</h1>
+<h1>Welcome, Admin!</h1>
 
 <button on:click={logout}>
     logout
