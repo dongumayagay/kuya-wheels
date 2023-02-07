@@ -4,18 +4,12 @@
 	import { generateString, sendEmail } from "$lib/utils.js"
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	// function submitHandler(event) 
-	// 	const formData = new FormData(event.target);
-	// 	const data = Object.fromEntries(formData);
-	// 	console.log(data);
-	// 
 	let fname = ""
 	let lname = ""
 	let mname = ""
 	let cnumber = ""
 	let date = ""
 	let email = ""
-	// let courses = ["Practical Driving 2", "Truck Parking", "Bus Parking"]
 	let coursetaken = ""
 	let showOtpInput = false
 	let randomcode
@@ -79,8 +73,6 @@
 
 
 <form on:submit|preventDefault={checkifDatebooked}>
-	<!-- <input type="text" name="name" placeholder="enter your full name" required />;
-	<input type="text" name="email" placeholder="enter your email address" required /> -->
 	<div class="courses">
 		<h1>Available Course/s:</h1>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
@@ -127,7 +119,13 @@
 				</div>
 				<div class="column-input">
 					<label for="">Appointment Date</label>
-					<input type="date" bind:value={date} required>
+					<input type="date" bind:value={date} required 
+					min={new Intl.DateTimeFormat('fr-CA', {
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit'
+					}).format(new Date(Date.now() + 3600 * 1000 * 24))}
+					>
 				</div>
 				
 			</div>
@@ -143,9 +141,6 @@
 
 			</div>
 		</div>
-		<!-- {#if fname.length<5}
-		<p>no no no</p>
-		{/if} -->
 		<br>
 		{#if showOtpInput === false}
 			<button>Submit</button>
@@ -157,8 +152,7 @@
 				<button>submit</button>
 			</form>
 		{/if}
-		<!-- <br>
-		<button>Submit</button> -->
+		<!-- <button>Submit</button> -->
 	</div>
 </form>
 <!-- <dialog open={showOtpInput}> -->
@@ -219,9 +213,7 @@
 		
 		width: 90%;
 		padding: 5px;
-		/* font-family: Arial, Helvetica, sans-serif; */
 		color: whitesmoke;
-		/* background-color: #DF362D; */
 		text-align: center;
 	}
 	.row-input{
