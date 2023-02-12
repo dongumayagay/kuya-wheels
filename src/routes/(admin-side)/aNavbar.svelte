@@ -6,10 +6,10 @@
 </nav>
 <nav id="adminTools">
 	<div class="link-container">
-		<a href="/admin">| Dashboard </a>
-		<a href="/admin">| Accounts </a>
-		<a href="/admin">| Appointments </a>
-        <a href="/admin">| Logout |</a>
+		<a href="/admin">Dashboard </a>
+		<a href="/admin">Payments </a>
+		<a href="/admin/appointments">Appointments </a>
+        <a href="/admin/logout">Logout</a>
 	</div>
 </nav>
 <style>
@@ -29,6 +29,10 @@
 		font-size: 1.3em;
 		/*font-family: fantasy; */
 		/* margin-right: 1.5em; */
+	}
+	.link-container a{
+		margin-left: 15px;
+		margin-right: 15px;
 	}
     p{
         color: whitesmoke;
