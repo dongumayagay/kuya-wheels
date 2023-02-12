@@ -49,8 +49,10 @@
 	}
 	async function createBooking() {
 		const booking = {
-		firstname:fname, 
-		lastname:lname, 
+		firstname:fname.toLowerCase(),
+		firstnameDisplay:fname, 
+		lastname:lname.toLowerCase(),
+		lastnameDisplay:lname, 
 		middlename:mname,
 		contactnumber:cnumber,  
 		course:coursetaken, 
