@@ -5,9 +5,11 @@
     
     var date =  new Date();
     var dd = String(date.getDate()).padStart(2, '0'); 
+    var ddt = String(date.getDate() + 1).padStart(2, '0'); 
     var mm = String(date.getMonth() + 1).padStart(2, '0'); 
     var yyyy = date.getFullYear(); 
     var newDate = yyyy + "-" + mm + "-" +dd;
+    var tomDate = yyyy + "-" + mm + "-" +ddt; 
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let listOfBooking = []

@@ -44,11 +44,11 @@
     <h1>Appointment Status</h1>
     <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">Last name: </label></div>
-        <div class="column"><input type="text" bind:value={data.booking.lastname} readonly></div>
+        <div class="column"><input type="text" bind:value={data.booking.lastnameDisplay} readonly></div>
     </div>
     <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">First name: </label></div>
-        <div class="column"><input type="text" bind:value={data.booking.firstname} readonly></div>
+        <div class="column"><input type="text" bind:value={data.booking.firstnameDisplay} readonly></div>
     </div>
     <div class="row">
         {#if data.booking.middlename !== ""}

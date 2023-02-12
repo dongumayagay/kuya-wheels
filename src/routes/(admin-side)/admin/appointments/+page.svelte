@@ -1,5 +1,5 @@
 <script>
-    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy } from "firebase/firestore"
+    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
     import { onDestroy } from "svelte"
 
@@ -9,7 +9,7 @@
     let searchLower 
     let sortStatus 
     let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"))
+    let appointmentQuery = query(collection(db, "bookings"), limit(15))
     let listOfBooking = []
 
     export let statusNP = "No payment";
@@ -106,13 +106,7 @@
         {#if search === "date"}
             <!-- svelte-ignore a11y-label-has-associated-control -->
             <label>Date: </label>
-            <input type="date" bind:value={searchValue} on:change={searchByDate}
-					min={new Intl.DateTimeFormat('fr-CA', {
-						year: 'numeric',
-						month: '2-digit',
-						day: '2-digit'
-					}).format(new Date(Date.now() + 3600 * 1000 * 24))}
-					>
+            <input type="date" bind:value={searchValue} on:change={searchByDate}>
         {/if}
         {#if search === "firstname"}
             <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -122,7 +116,7 @@
         {#if search === "lastname"}
             <!-- svelte-ignore a11y-label-has-associated-control -->
             <label>Last Name: </label>
-            <input type="text" bind:value={searchValue} on:change={searchByDate}>
+            <input type="text" bind:value={searchValue} on:input={searchByDate}>
         {/if}        
         
     </div>
