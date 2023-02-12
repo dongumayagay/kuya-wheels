@@ -120,6 +120,7 @@
 		border-radius: 5px;
 
 		font-weight: 600;
+		height: 500px;
 	}
 	#contactInfo p {
 		padding-left: 20px;
@@ -151,10 +152,6 @@
 	}
 	h5{
 		font-size: 1.5em;
-	}
-	h6{
-		text-align: left;
-		font-size: 1.4em;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);

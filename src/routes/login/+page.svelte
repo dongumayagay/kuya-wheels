@@ -27,7 +27,7 @@
     </nav>
     <nav id="loginHeader">
         <div class="link-container">
-            <p>User Login</p>
+            <p>Admin Login</p>
         </div>
     </nav>
     <div id="loginForm">
@@ -57,6 +57,9 @@
         align-items: stretch;
         /* background-color: #ff8533; */
         background-color:  #ff944d;
+        background-image: url("/proof4.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     #loginForm{
         background-color: rgba(0,0,0,0.8);
@@ -64,6 +67,7 @@
 
         width: auto;
         margin-top: 100px;
+        margin-bottom: 100px;
         margin-left: 35%;
         margin-right: 35%;
         padding: 70px;
