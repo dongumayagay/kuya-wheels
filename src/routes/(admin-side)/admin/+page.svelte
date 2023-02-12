@@ -1,5 +1,5 @@
 <script>
-    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where } from "firebase/firestore"
+    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, getCountFromServer } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
 	import { onDestroy } from "svelte";
     
@@ -12,19 +12,25 @@
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let listOfBooking = []
     let appointments = null
+    let bookingCount = ""
 
     export let statusNP = "No payment";
     export let statusP = "Paid"
 
+    async function getBookingcount() {
+        const countQuery = query(collection(db, "bookings"))
+        const countSnapshot = await getCountFromServer(countQuery)
+        bookingCount = countSnapshot.data().count
+    }
     async function getAppointments() {
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
             listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
         })
         onDestroy(() => unsubscribe())
     }
+    getBookingcount()
     $: getAppointments(appointmentQuery)
     // console.log(getAppointments())
-    console.log(newDate)
 </script>
 
 <h1>Welcome, Admin!</h1>
@@ -38,7 +44,7 @@
     <div class="panelDisplay">
         <h2>Number of booked client</h2>
         <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
-        <p>sample</p>
+        <p>{bookingCount}</p>
     </div>
     <div class="panelDisplay">
         <h2>Paid clients</h2>
