@@ -44,21 +44,17 @@
     <h1>Appointment Status</h1>
     <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">Last name: </label></div>
-        <div class="column"><input type="text" bind:value={data.booking.lastname} readonly></div>
+        <div class="column"><input type="text" bind:value={data.booking.lastnameDisplay} readonly></div>
     </div>
     <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">First name: </label></div>
-        <div class="column"><input type="text" bind:value={data.booking.firstname} readonly></div>
+        <div class="column"><input type="text" bind:value={data.booking.firstnameDisplay} readonly></div>
     </div>
     <div class="row">
         {#if data.booking.middlename !== ""}
             <div class="column"><label for="" style="display: flex;justify-content: center;">Middle name: </label></div>
             <div class="column"><input type="text" bind:value={data.booking.middlename} readonly></div>
         {/if}
-    </div>
-    <div class="row">
-        <div class="column"><label for="" style="display: flex;justify-content: center;">First name: </label></div>
-        <div class="column"><input type="text" bind:value={data.booking.firstname} readonly></div>
     </div>
     <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">Email: </label></div>
@@ -103,8 +99,7 @@
         <h1>
             Reload to see update to payment status
         </h1>
-        <br>
-        <p>or</p>
+        <h2>or</h2>
         <button on:click={gotoPayment}>Generate payment link again</button>
     {/if}
     {#if data.booking.isDownpaymentPaid === true}
@@ -142,10 +137,7 @@
         text-align: center;
     }
     h2{
-        color: whitesmoke;
-
-        width: auto;
-        margin-left: 5px;
+        text-align: center;
     }
     p{
         width: auto;
