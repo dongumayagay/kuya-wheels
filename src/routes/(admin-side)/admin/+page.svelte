@@ -10,16 +10,34 @@
     var yyyy = date.getFullYear(); 
     var newDate = yyyy + "-" + mm + "-" +dd;
     var tomDate = yyyy + "-" + mm + "-" +ddt; 
+    var todayBtn = "<"
+    var tomorrowBtn = ">"
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
+    let appointmentTomQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
     let listOfBooking = []
+    let listOfTomorrowBooking = []
     let appointments = null
     let bookingCount = ""
     let todayBookingCount = ""
     let paidBookingCount 
+    let tomorrowBookingCount = ""
+    let paidTomorrowBookingCount
+    let dday = "today"
 
     export let statusNP = "No payment";
     export let statusP = "Paid"
+
+    async function switchDay() {
+        if (dday == "today") {
+            dday = "tomorrow"
+            return
+        }
+        if (dday == "tomorrow") {
+            dday = "today"
+            return
+        }
+    }
 
     async function getBookingcount() {
         const countQuery = query(collection(db, "bookings"))
@@ -36,31 +54,81 @@
         const countSnapshot = await getCountFromServer(countQuery)
         paidBookingCount = countSnapshot.data().count
     }
+
+    async function getTomorrowBookingcount() {
+        const countQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
+        const countSnapshot = await getCountFromServer(countQuery)
+        tomorrowBookingCount = countSnapshot.data().count
+    }
+    async function getPaidTomorrowBookingcount() {
+        const countQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", "==", true), where("date", "==", tomDate))
+        const countSnapshot = await getCountFromServer(countQuery)
+        paidTomorrowBookingCount = countSnapshot.data().count
+    }
+
     async function getAppointments() {
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
             listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
         })
         onDestroy(() => unsubscribe())
     }
+
+    async function getTomorrowAppointments() {
+        const unsubscribe = onSnapshot(appointmentTomQuery, (querySnapshot) => {
+            listOfTomorrowBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
+        })
+        onDestroy(() => unsubscribe())
+    }
+
+    getTomorrowBookingcount()
+    getPaidTomorrowBookingcount()
+    $: getTomorrowAppointments(appointmentTomQuery)
+
     getCurrentBookingcount()
+
     getPaidBookingcount()
     getBookingcount()
     $: getAppointments(appointmentQuery)
     // console.log(getAppointments())
 </script>
 
+
+
 <h1>Welcome, Admin!</h1>
 <hr>
 <div style="align-items: center; margin-top:20px;margin-left:30px;">
     <label for="">Bookings for Course: </label>
     <select>
-        <option value="Practical Driving 2">Practical Driving 2</option>
+        <option value="Practical Driving Course 3">Practical Driving Course 3</option>
     </select> 
 </div>
-
+{#if dday == "tomorrow"}
 <div id="panel">
     <div class="panelDisplay">
-        <h2>Appointment Date (Today)</h2>
+        <h2>Appointment Date</h2>
+        <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
+        <p>{tomDate}</p>
+    </div>
+    <div class="panelDisplay">
+        <h2>Booked clients</h2>
+        <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
+        <p>{tomorrowBookingCount}</p>
+    </div>
+    <div class="panelDisplay">
+        <h2>Paid clients</h2>
+        <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
+        <p>{paidTomorrowBookingCount}</p>
+    </div>
+    <div class="panelDisplay">
+        <h2>Total number of Bookings</h2>
+        <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
+        <p>{bookingCount}</p>
+    </div>
+</div>
+{:else}
+<div id="panel">
+    <div class="panelDisplay">
+        <h2>Appointment Date</h2>
         <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
         <p>{newDate}</p>
     </div>
@@ -80,8 +148,68 @@
         <p>{bookingCount}</p>
     </div>
 </div>
-<div style="display: flex; flex-direction: row;">
-    <div>
+{/if}
+<hr>
+{#if dday == "tomorrow"}
+<div style="display: flex; flex-direction: row; padding-top:10px; margin:1px;">
+    <div style="width:100%;padding: 0px 20px 0px 20px;">
+        <div style="display: flex; justify-content: space-between;">
+            <h1 style="margin-top: 0;margin-bottom:20px;margin-left:10px;">Appointments for Tomorrow</h1>
+            <button class="arrowBtn" on:click={switchDay}>{todayBtn}</button>
+        </div>
+        {#if listOfTomorrowBooking === null}
+        <h1>loading appointments</h1>
+            {:else}
+                {#if tomorrowBookingCount === 0}
+                <h1>There is Currently no Booking scheduled for this day</h1>
+                {:else}
+                <table id="appointmentTableToday">
+                    <tr id="fieldname">
+                    <th>ID</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Payment Status</th>
+                    <th>Course</th>
+                    </tr>
+                    {#each listOfTomorrowBooking as item}
+                        <tr id="fields">
+                            <td>{item.id}</td>
+                            <td>{item.lastnameDisplay}</td>
+                            <td>{item.firstnameDisplay}</td>
+                            {#if item.middlename == ""}
+                                <td>N/A</td>
+                                {:else}
+                                <td>{item.middlename}</td>
+                            {/if}
+                            {#if item.isDownpaymentPaid === false}
+                                <td style="background-color: red;">{statusNP}</td>
+                            {/if}
+                            {#if item.isDownpaymentPaid !== false}
+                            <td style="background-color: green;">{statusP}</td>
+                            {/if}
+                            <td>{item.course}</td>
+                        </tr>
+                    {/each}
+                </table>
+                <div style="margin: 20px 20px 20px 10px;">
+                    <div id="printPdf">
+                        <button id="print">Print as PDF</button>
+                    </div>
+                </div>
+                {/if}
+                
+        {/if}
+    </div>
+    <!-- legend placement -->
+</div>
+{:else}
+<div style="display: flex; flex-direction: row; padding-top:10px; margin:1px;">
+    <div style="width:100%;padding: 0px 20px 0px 20px;">
+        <div style="display: flex; justify-content: space-between;">
+            <h1 style="margin-top: 0;margin-bottom:20px;margin-left:10px;">Appointments for Today</h1>
+            <button class="arrowBtn" on:click={switchDay}>{tomorrowBtn}</button>
+        </div>
         {#if listOfBooking === null}
         <h1>loading appointments</h1>
             {:else}
@@ -117,7 +245,7 @@
                         </tr>
                     {/each}
                 </table>
-                <div style="margin: 20px;">
+                <div style="margin: 20px 20px 20px 10px;">
                     <div id="printPdf">
                         <button id="print">Print as PDF</button>
                     </div>
@@ -126,7 +254,10 @@
                 
         {/if}
     </div>
-    <!-- <div style="display: flex; flex-direction: column;width:100%;">
+    <!-- legend placement -->
+</div>
+{/if}
+<!-- <div style="display: flex; flex-direction: column;width:100%;">
         <div class="legendPanel">
             <h2>Legend</h2>
             <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
@@ -147,13 +278,6 @@
             </div>
         </div>
     </div> -->
-    <!-- <div style="margin: 20px;">
-        <div id="printPdf">
-            <button id="print">Print as PDF</button>
-        </div>
-    </div> -->
-</div>
-
 <style>
     @import url('https://fonts.googleapis.com/css?family=Lato');
 
@@ -230,6 +354,23 @@
         margin-left: 0;
         border: 1px solid #999;
     } */
+    .arrowBtn{
+        font-family: 'Oswald';
+        font-weight: 400;
+        font-size: 25px;
+
+        background-color: #ff9318;
+        color: whitesmoke;
+        border-radius: 10px;
+        border: 1px solid rgb(255, 194, 115);
+
+        height: 60%;
+        margin: 10px 5px 5px 5px;
+        padding: 0px 15px 5px 15px;
+    }
+    .arrowBtn:hover{
+        background-color: #f0850b;
+    }
     #print{
         font-family: 'Oswald';
         font-weight: 400;
@@ -239,7 +380,6 @@
         background-color: rgb(143, 0, 0);
         border: 1px solid rgb(54, 26, 26);
         border-radius: 5px;
-        margin-left: 10px;
     }
 	#print:hover {
 		background-color: #c70000;
@@ -251,8 +391,7 @@
 
         border-spacing: 0;
 
-        width: 1000px;
-        margin-left: 30px; 
+        width: 100%;
         margin-right: 30px;
     }
     #fieldname{
