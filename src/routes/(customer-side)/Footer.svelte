@@ -6,16 +6,11 @@
         </h1>
     </div> -->
     <div class="footerContact">
-        <h3>Quick Contacts</h3>
-        
-		<p class=labels>ADDRESS:</p>
-        <p>2nd Floor Harmony Village Mall Left Side Entrance <br>Olympia Street, San Pedro, Laguna</p>
-        <br>
-		<p class=labels>CONTACTS:</p>
+		<h3>Contacts</h3>
         <p>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958</p>
         <p class=labels>TELEPHONE:</p>
 		<p>(02) 877-73441</p>
-	</div>
+    </div>
     <div class="footerContact">
         <h3>Social Media</h3>
 		<p>
@@ -24,6 +19,10 @@
 		<p>
 			FOLLOW US: <br> <a href="https://www.facebook.com/KuyaWheelsDrivingSchool" target="_blank" rel="noopener noreferrer"> <img src="/facebook.png" alt="Kuya Wheels Facebook" style="width:30px;"></a>
 		</p>
+	</div>
+    <div class="footerContact">
+        <h3>Address</h3>
+        <p>2nd Floor Harmony Village Mall Left Side Entrance <br>Olympia Street, San Pedro, Laguna</p>
 	</div>
 </footer>
 

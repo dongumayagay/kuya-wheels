@@ -1,8 +1,8 @@
 <nav>
 	<div class="link-container">
-		<a href="/">| Home </a>
-		<a href="/aboutus">| About Us |</a>
-		<a href="/book"> Booking |</a>
+		<a href="/">Home</a>
+		<a href="/aboutus">About Us</a>
+		<a href="/book">Booking</a>
 	</div>
 </nav>
 
@@ -26,7 +26,8 @@
 	}
 	a{
 		color: whitesmoke;
-		padding-left: 10px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 	a:link {
 		text-decoration: none;

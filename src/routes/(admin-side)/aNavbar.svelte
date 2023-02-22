@@ -6,9 +6,9 @@
 </nav>
 <nav id="adminTools">
 	<div class="link-container">
-		<a href="/admin">Dashboard </a>
-		<a href="/admin">Payments </a>
-		<a href="/admin/appointments">Appointments </a>
+		<a href="/admin">Dashboard</a>
+		<a href="/admin">Payments</a>
+		<a href="/admin/appointments">Appointments</a>
         <a href="/admin/logout">Logout</a>
 	</div>
 </nav>
@@ -40,7 +40,6 @@
     }
 	a{
 		color: whitesmoke;
-		margin-left: 10px;
 	}
 	a:link {
 		text-decoration: none;

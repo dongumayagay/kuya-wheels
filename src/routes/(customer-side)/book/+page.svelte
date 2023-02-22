@@ -1,6 +1,6 @@
 <script>
 	import { db } from "$lib/firebase.js"
-	import { addDoc, collection, getDocs, where, query, getCountFromServer } from "firebase/firestore"
+	import { addDoc, collection, getDocs, where, query, getCountFromServer, serverTimestamp } from "firebase/firestore"
 	import { generateString, sendEmail } from "$lib/utils.js"
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
@@ -76,12 +76,18 @@
 
 <form on:submit|preventDefault={checkifDatebooked}>
 	<div class="courses">
-		<h1>Available Course/s:</h1>
+		
+		<h1 style="margin-bottom: 10px;">Available Course/s:</h1>
+		<div>
+			<select>
+				<option value="Practical Driving Course R3" selected>Practical Driving Course R3</option>
+			</select> 
+		</div>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
 			3,500kg but not exceeding 12,000kg.<br><br>
 			Requirements to bring:<br>
 			- Ballpen<br>- Notebook<br>- 1pc 2x2 picture<br>- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a period of at least one (1) year prior to the application<br><br>
-			More courses coming soon so stay tuned!
+			
 			</h2>
 	</div>
 

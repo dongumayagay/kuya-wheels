@@ -11,7 +11,7 @@
 		<h2>
 			About Kuya Wheels Driving School and your Instructor
 		</h2>
-		<p>
+		<p style="margin: 20px;">
 			The owner and driving instructor of Kuya Wheels Driving School is Joselito A. Balagbis, commonly referred to 
 			by friends as "Kuya Joy". His career in the automotive industry started in 1994 when he became a Stencil Boy for 
 			one of the branches of the Land Transportation Office of the Philippines and worked his way up to 
@@ -54,7 +54,7 @@
 				Throughout the course of his career, Mr. Balagbis obtained his knowledge by taking the appropriate TESDA courses
 				and passing every one of them with flying colors. His ever-expanding arsenal of National Certificates are proof of his 
 				dedication to his craft. These are:
-				</h5>
+			</h5>
 			<p>
 				- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
 				- NC III in DRIVING (ARTICULATED VEHICLE)<br>- NC III in AUTOMOTIVE SERVICING<br>- NC II in AUTOMOTIVE SERVICING (CHASSIS REPAIR)<br>
@@ -83,7 +83,7 @@
 		flex-direction: row;
 	}
 	#profileInfo, #profilePicture {
-		padding: 10px;
+		padding: 20px;
 		background-color: rgba(0,0,0,0.8);
 	}
 	#profileInfo{
@@ -97,6 +97,13 @@
 		flex-direction: column;
 	}
 	#profilePicture{
+		padding: 0;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+	}
+	#profilePicture img{
+		width: 100%;
+		height: 100%;
 		border-top-left-radius: 8px;
 		border-bottom-left-radius: 8px;
 	}
