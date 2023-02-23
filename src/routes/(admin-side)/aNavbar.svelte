@@ -21,12 +21,14 @@
 <nav id="adminTools">
 	<div class="link-container">
 		<a href="/admin">Dashboard</a>
-		<a href="/admin">Payments</a>
+		<a href="/admin/payments">Payments</a>
 		<a href="/admin/appointments">Appointments</a>
 		<button on:click={logout}>Logout</button>
 	</div>
 </nav>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
     nav{
         background-color: rgba(0,0,0,0.8);
 
@@ -40,7 +42,7 @@
 		margin-right: 10px;
 		display: flex;
 		flex-direction: flex-end;
-		font-size: 1.3em;
+		font-size: 22px;
 		/*font-family: fantasy; */
 		/* margin-right: 1.5em; */
 	}
@@ -50,7 +52,7 @@
 	}
     p{
         color: whitesmoke;
-        font-size: 1.5em
+        font-size: 30px
     }
 	a{
 		color: whitesmoke;
@@ -69,7 +71,7 @@
         align-items: center;
         display: flex;
 
-        font-size: 1.3em;
+        font-size: 20px;
         margin: 0%;
     }
     #adminTools{
@@ -78,6 +80,20 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		padding: 0.5em;
+		padding: 8px;
     }
+
+	button{
+		font-family: 'Oswald';
+		font-weight: 400;
+		font-size: 22px;
+		color: whitesmoke;
+
+		border: 0;
+		background-color: rgba(0,0,0,0);
+	}
+	button:hover {
+		text-decoration: underline;
+		cursor: pointer;
+	}
 </style>
