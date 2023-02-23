@@ -56,12 +56,12 @@
     // $:console.log(appointments)
 </script>
 
-<h1 style="margin:5px 0 5px 0;">Appointments</h1>
+<h1 style="margin:5px 0 5px 0;text-align:center;">Appointments</h1>
 <hr style="border: 1px solid rgba(20, 20, 20, 0.7);width: 99%;">
 <div style="align-items: center; margin-top:20px;margin-left:30px;">
     <label for="">Appointments for Course: </label>
     <select>
-        <option value="Practical Driving 2" selected>Practical Driving 2</option>
+        <option value="Practical Driving 3" selected>Practical Driving Course 3</option>
     </select> 
 </div>
 <br>
@@ -156,10 +156,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
     @import url('https://fonts.googleapis.com/css?family=Lato');
-    h1{
-        display: flex;
-        justify-content: center;
-    }
 
     .functions{
         margin: 10px;
