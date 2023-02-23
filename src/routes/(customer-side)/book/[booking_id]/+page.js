@@ -1,5 +1,5 @@
 import { db } from '$lib/firebase'
-import { updateDoc, doc, getDoc } from 'firebase/firestore'
+import { updateDoc, doc, getDoc, addDoc, collection } from 'firebase/firestore'
 
 /** @type {import('./$types').PageLoad} */
 export async function load({params}) {
@@ -22,6 +22,8 @@ export async function load({params}) {
             if (paymentLink.attributes.status === "paid"){
                 await updateDoc(doc(db, "bookings", params.booking_id), {isDownpaymentPaid:true})
                 booking.isDownpaymentPaid = true
+
+                await addDoc(collection(db, "payments"), paymentLink)
             }
     }
     return {booking};
