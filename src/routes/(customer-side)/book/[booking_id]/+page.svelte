@@ -6,7 +6,18 @@
     export let data;
     export let statusNP = "No payment";
     export let statusP = "Paid"
+    let resched = false
 
+    async function reschedDialog() {
+        if (resched == false) {
+            resched = true
+            return
+        }
+        if (resched == true) {
+            resched = false
+            return
+        }
+    }
     async function gotoPayment() {
             const options = {
     method: 'POST',
@@ -93,7 +104,7 @@
 
     {#if data.booking.isDownpaymentPaid === false && data.booking.paymentReferrencenumber === ""}
         <button on:click={gotoPayment}>Go to Down Payment</button>
-        
+        <button id="cancelBtn">Cancel Booking</button>
     {/if}
     {#if data.booking.isDownpaymentPaid === false && data.booking.paymentReferrencenumber !== ""}
         <h1>
@@ -104,8 +115,27 @@
     {/if}
     {#if data.booking.isDownpaymentPaid === true}
         <p style="text-align: center;border: 1.5px solid rgb(102, 87, 0);background-color: rgba(0,0,0,0.8);color: whitesmoke;">You're paid and expected to come at the Date of Appointment</p>
+        <button id="reschedBtn" on:click={reschedDialog}>Reschedule</button>
     {/if}
 </main>
+{#if resched == true}
+    <div id="blur">
+        <div id="reschedTab">
+            <div class="rPanel" style="background-color: rgba(0,0,0,0.8);margin: 0px;color: whitesmoke;"> 
+                <h1>Please choose a date to Reschedule</h1>
+                <p>Note: You're only given 2 attempts at rescheduling</p>
+            </div>
+            <div class="rPanel">
+                <label for="">Date:</label>
+                <input type="date">
+                <div style="width: 100%;display:flex;flex-direction:row;">
+                    <button id="cancelRBtn" on:click={reschedDialog}>Cancel</button>
+                    <button id="submitRBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
@@ -176,10 +206,22 @@
 		border-radius: 4px;
 	}
 	button:hover {
-		background-color: #36a83a;
+		background-color: #11ac16;
 	}
-
-
+    #cancelBtn {
+        color: whitesmoke;
+		background-color: #f44336;
+    }
+    #cancelBtn:hover {
+        background-color: #f02113;
+    }
+    #reschedBtn {
+        color: whitesmoke;
+		background-color: #008CBA;
+    }
+    #reschedBtn:hover {
+        background-color: #0066b9;
+    }
 
     .column {
         /* border: 1px solid blue; */
@@ -193,23 +235,62 @@
         margin-bottom: 5px;
     }
 
-    
-    /* .infoCourse{
+    #blur {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		height: 100vh;
+		width: 100vw;
+		background-color: rgba(0,0,0,0.5);
+	}
+    #reschedTab {
         display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-    }
-    .formArrange{
+		flex-direction: row;
+		align-items: center;
 
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        align-items: center;
+		background-color: #ff944d;
+		border: 4px solid rgba(70, 28, 0, 0.8);
+		border-radius: 10px;
+
     }
-    .labels{
+    #reschedTab p {
+        font-size: 20px;
+    }
+    .rPanel input {
+        background-color: rgb(228, 228, 228);
+        color: black;
+        margin: 5px 0px 5px 0px;
+    }
+    .rPanel label {
+        color: black;
+    }
+    .rPanel {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 10px;
-    } */
+        flex-direction: column;
+        width: 100%;
+        padding: 15px;
+
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+    }
+    #cancelRBtn, #submitRBtn{
+        width: 100%;
+        margin: 1px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    #cancelRBtn {
+        background-color: #f44336;
+    }
+    #cancelRBtn:hover {
+        background-color: #f02113;
+    }
+    #submitRBtn {
+        background-color: #4CAF50;
+    }
+	#submitRBtn:hover {
+		background-color: #11ac16;
+	}
 </style>
