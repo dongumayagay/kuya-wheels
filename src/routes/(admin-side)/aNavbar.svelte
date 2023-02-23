@@ -1,3 +1,17 @@
+<script>
+	import { signOut } from "firebase/auth";
+	import { auth } from "$lib/firebase"
+
+	async function logout() {
+		const choice = confirm("Are you sure you want to Log out?")
+		console.log(choice)
+
+		if (choice) {
+			await signOut(auth)
+		}
+	}
+</script>
+
 <nav>
     <div id="titleBar">
         <img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
@@ -9,7 +23,7 @@
 		<a href="/admin">Dashboard</a>
 		<a href="/admin">Payments</a>
 		<a href="/admin/appointments">Appointments</a>
-        <a href="/admin/logout">Logout</a>
+		<button on:click={logout}>Logout</button>
 	</div>
 </nav>
 <style>
