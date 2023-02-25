@@ -20,8 +20,12 @@ export async function load({params}) {
             console.log(paymentLink)
 
             if (paymentLink.attributes.status === "paid"){
-                await updateDoc(doc(db, "bookings", params.booking_id), {isDownpaymentPaid:true})
-                booking.isDownpaymentPaid = true
+                await updateDoc(doc(db, "bookings", params.booking_id), {
+                    isDownpaymentPaid:true,
+                    payMethod:paymentLink.attributes.payments[0].data.attributes.source.type,
+                    datePaid: new Date(paymentLink.attributes.payments[0].data.attributes.paid_at * 1000).toLocaleString(),
+                    amount: paymentLink.attributes.amount * 0.01
+                })
 
                 await addDoc(collection(db, "payments"), paymentLink)
             }
