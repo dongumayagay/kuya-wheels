@@ -107,7 +107,7 @@
         <button id="cancelBtn">Cancel Booking</button>
     {/if}
     {#if data.booking.isDownpaymentPaid === false && data.booking.paymentReferrencenumber !== ""}
-        <h1>
+        <h1 style="margin-bottom:0px;">
             Reload to see update to payment status
         </h1>
         <h2>or</h2>
@@ -127,7 +127,13 @@
             </div>
             <div class="rPanel">
                 <label for="">Date:</label>
-                <input type="date">
+                <input type="date" required
+                min={new Intl.DateTimeFormat('fr-CA', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).format(new Date(Date.now() + 3600 * 1000 * 24))}
+                >
                 <div style="width: 100%;display:flex;flex-direction:row;">
                     <button id="cancelRBtn" on:click={reschedDialog}>Cancel</button>
                     <button id="submitRBtn">Submit</button>
