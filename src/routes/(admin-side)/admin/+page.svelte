@@ -2,16 +2,17 @@
     import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, getCountFromServer } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
 	import { onDestroy } from "svelte";
+    import { jsPDF } from 'jspdf'
     
-    var date =  new Date();
-    var dd = String(date.getDate()).padStart(2, '0'); 
-    var ddt = String(date.getDate() + 1).padStart(2, '0'); 
-    var mm = String(date.getMonth() + 1).padStart(2, '0'); 
-    var yyyy = date.getFullYear(); 
-    var newDate = yyyy + "-" + mm + "-" +dd;
-    var tomDate = yyyy + "-" + mm + "-" +ddt; 
-    var todayBtn = "<"
-    var tomorrowBtn = ">"
+    let date =  new Date();
+    let dd = String(date.getDate()).padStart(2, '0'); 
+    let ddt = String(date.getDate() + 1).padStart(2, '0'); 
+    let mm = String(date.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = date.getFullYear(); 
+    let newDate = yyyy + "-" + mm + "-" +dd;
+    let tomDate = yyyy + "-" + mm + "-" +ddt; 
+    let todayBtn = "<"
+    let tomorrowBtn = ">"
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let appointmentTomQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
@@ -78,6 +79,36 @@
             listOfTomorrowBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
         })
         onDestroy(() => unsubscribe())
+    }
+    async function createReportToday(){
+        const pdf = new jsPDF()
+        const reportQuery =  query(collection(db, "bookings"), where("date", "==", newDate))
+        const reportSnapshot = await getDocs(reportQuery)
+        let text = ""
+        reportSnapshot.forEach(bookings => {
+            text += `id: ${bookings.id}\n`
+            text += `first: ${bookings.data().firstnameDisplay}\n\n`
+        })
+
+        pdf.text(text, 10, 18)
+        pdf.save("test.pdf")
+
+        pdf.table()
+    }
+    async function createReportTomorrow(){
+        const pdf = new jsPDF()
+        const reportQuery =  query(collection(db, "bookings"), where("date", "==", tomDate))
+        const reportSnapshot = await getDocs(reportQuery)
+        let text = ""
+        reportSnapshot.forEach(bookings => {
+            text += `id: ${bookings.id}\n`
+            text += `first: ${bookings.data().firstnameDisplay}\n\n`
+        })
+
+        pdf.text(text, 10, 18)
+        pdf.save("test.pdf")
+
+        pdf.table()
     }
 
     getTomorrowBookingcount()
@@ -194,7 +225,7 @@
                 </table>
                 <div style="margin: 20px 20px 20px 10px;">
                     <div id="printPdf">
-                        <button id="print">Print as PDF</button>
+                        <button id="print" on:click={createReportTomorrow}>Print as PDF</button>
                     </div>
                 </div>
                 {/if}
@@ -247,7 +278,7 @@
                 </table>
                 <div style="margin: 20px 20px 20px 10px;">
                     <div id="printPdf">
-                        <button id="print">Print as PDF</button>
+                        <button id="print" on:click={createReportToday}>Print as PDF</button>
                     </div>
                 </div>
                 {/if}
