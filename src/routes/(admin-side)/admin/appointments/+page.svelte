@@ -4,14 +4,12 @@
     import { onDestroy } from "svelte"
     // import { jsPDF } from 'jspdf'
 
-    let sort
     let search 
     let searchValue 
     let searchLower 
-    // let searchId
     let sortStatus = ""
     let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
+    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'), limit(15))
     let listOfBooking = []
 
     export let statusNP = "No payment";
@@ -30,16 +28,10 @@
         sort = "date"
         sortStatus = ""
     }
-    async function changeSortBy() {
-        appointmentQuery = query(collection(db, "bookings"), orderBy(sort, 'asc'))
-    }
     async function searchByDate() {
-        searchLower = searchValue.toLowerCase() 
-        appointmentQuery = query(collection(db, "bookings"), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'))
+        searchLower = searchValue.toLowerCase()      
+        appointmentQuery = query(collection(db, "bookings"), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
     }
-    // async function searchById() {
-    //     appointmentQuery = query(collection(db, "bookings"), where(searchId, '==', "id"))
-    // }
     async function sortByPayment() {
         
         if (sortStatus === "true") {
@@ -48,48 +40,19 @@
             appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', false), orderBy("date", 'asc'))
         }
     }
-    // async function createReport(){
-    //     const pdf = new jsPDF()
-    //     const reportQuery =  query(collection(db, "bookings"))
-    //     const reportSnapshot = await getDocs(reportQuery)
-    //     let text = ""
-    //     reportSnapshot.forEach(bookings => {
-    //         text += `id: ${bookings.id}\n`
-    //         text += `first: ${bookings.data().firstnameDisplay}\n\n`
-    //     })
-
-    //     pdf.text(text, 10, 18)
-    //     pdf.save("test.pdf")
-
-    //     pdf.table()
-    // }
     $: getAppointments(appointmentQuery)
-    // $:console.log(appointments)
 </script>
 
 <h1 style="margin:5px 0 5px 0;text-align:center;">Appointments</h1>
 <hr style="border: 1px solid rgba(20, 20, 20, 0.7);width: 99%;">
-<div style="align-items: center; margin-top:20px;margin-left:30px;">
-    <label for="">Appointments for Course: </label>
-    <select>
-        <option value="Practical Driving 3" selected>Practical Driving Course 3</option>
-    </select> 
-</div>
 <br>
 <div style="display:flex;justify-content:space-between;flex-direction: row;align-items: center;margin:0 20px 0 20px;">
     <div class="functions" style="display:flex;flex-direction: row;">
-        <label for="" class="functionLabel">Sort by:</label>
-        <select name="" bind:value={sort} on:change={changeSortBy} class="functionSelect">
-            <option value="date" selected>Date</option>
-            <option value="firstname">First Name</option>
-            <option value="lastname">Last Name</option>
-        </select>
-        <label for="" class="functionLabel" style="margin-left: 10px;">Search by:</label>
+        <label for="" class="functionLabel">Search by:</label>
         <select name="" bind:value={search} class="functionSelect">
             <option value="date" selected>Date</option>
             <option value="firstname">First Name</option>
             <option value="lastname">Last Name</option>
-            <option value="id">ID</option>
         </select>
         {#if search === "date"}
             <input type="date" bind:value={searchValue} on:change={searchByDate} class="uInput">
@@ -100,11 +63,8 @@
         {#if search === "lastname"}
             <input type="text" bind:value={searchValue} placeholder="Input Last Name" on:input={searchByDate} class="uInput">
         {/if}
-        {#if search === "id"}
-            <input type="text" placeholder="ID" class="uInput">
-        {/if}
     </div>
-    <button on:click={clearFilter}>Clear Filter</button>
+    <button on:click={clearFilter} style="padding:5px;">Clear Filter</button>
     <div class="functions" style="display:flex;flex-direction: row;">
         <label for=""  class="functionLabel">Show Payment status:</label>
         <select name="" bind:value={sortStatus} on:change={sortByPayment}  class="functionSelect">
