@@ -1,16 +1,17 @@
 <script>
-    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc } from "firebase/firestore"
+    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc, documentId } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
     import { onDestroy } from "svelte"
-    import { jsPDF } from 'jspdf'
+    // import { jsPDF } from 'jspdf'
 
     let sort
     let search 
     let searchValue 
     let searchLower 
-    let sortStatus 
+    // let searchId
+    let sortStatus = ""
     let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"), limit(15), orderBy("date", 'asc'))
+    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
     let listOfBooking = []
 
     export let statusNP = "No payment";
@@ -22,6 +23,13 @@
         })
         onDestroy(() => unsubscribe())
     }
+    async function clearFilter() {
+        appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
+        searchValue = null
+        search = "date"
+        sort = "date"
+        sortStatus = ""
+    }
     async function changeSortBy() {
         appointmentQuery = query(collection(db, "bookings"), orderBy(sort, 'asc'))
     }
@@ -29,6 +37,9 @@
         searchLower = searchValue.toLowerCase() 
         appointmentQuery = query(collection(db, "bookings"), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'))
     }
+    // async function searchById() {
+    //     appointmentQuery = query(collection(db, "bookings"), where(searchId, '==', "id"))
+    // }
     async function sortByPayment() {
         
         if (sortStatus === "true") {
@@ -37,21 +48,21 @@
             appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', false), orderBy("date", 'asc'))
         }
     }
-    async function createReport(){
-        const pdf = new jsPDF()
-        const reportQuery =  query(collection(db, "bookings"))
-        const reportSnapshot = await getDocs(reportQuery)
-        let text = ""
-        reportSnapshot.forEach(bookings => {
-            text += `id: ${bookings.id}\n`
-            text += `first: ${bookings.data().firstnameDisplay}\n\n`
-        })
+    // async function createReport(){
+    //     const pdf = new jsPDF()
+    //     const reportQuery =  query(collection(db, "bookings"))
+    //     const reportSnapshot = await getDocs(reportQuery)
+    //     let text = ""
+    //     reportSnapshot.forEach(bookings => {
+    //         text += `id: ${bookings.id}\n`
+    //         text += `first: ${bookings.data().firstnameDisplay}\n\n`
+    //     })
 
-        pdf.text(text, 10, 18)
-        pdf.save("test.pdf")
+    //     pdf.text(text, 10, 18)
+    //     pdf.save("test.pdf")
 
-        pdf.table()
-    }
+    //     pdf.table()
+    // }
     $: getAppointments(appointmentQuery)
     // $:console.log(appointments)
 </script>
@@ -65,46 +76,44 @@
     </select> 
 </div>
 <br>
-<div style="display: flex; flex-direction: row; margin: 20px;">
-    <div class="functions">
-        <label for="">Sort by: </label>
-        <select name="" bind:value={sort} on:change={changeSortBy}>
+<div style="display:flex;justify-content:space-between;flex-direction: row;align-items: center;margin:0 20px 0 20px;">
+    <div class="functions" style="display:flex;flex-direction: row;">
+        <label for="" class="functionLabel">Sort by:</label>
+        <select name="" bind:value={sort} on:change={changeSortBy} class="functionSelect">
             <option value="date" selected>Date</option>
-			<option value="firstname">First Name</option>
-			<option value="lastname">Last Name</option>
-        </select>   
-    </div>
-    <div class="functions">
-        <label for="">Search by:</label>
-        <select name="" bind:value={search}>
-            <option value="date">Date</option>
-			<option value="firstname">First Name</option>
-			<option value="lastname">Last Name</option>
+            <option value="firstname">First Name</option>
+            <option value="lastname">Last Name</option>
+        </select>
+        <label for="" class="functionLabel" style="margin-left: 10px;">Search by:</label>
+        <select name="" bind:value={search} class="functionSelect">
+            <option value="date" selected>Date</option>
+            <option value="firstname">First Name</option>
+            <option value="lastname">Last Name</option>
+            <option value="id">ID</option>
         </select>
         {#if search === "date"}
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label>Date: </label>
-            <input type="date" bind:value={searchValue} on:change={searchByDate}>
+            <input type="date" bind:value={searchValue} on:change={searchByDate} class="uInput">
         {/if}
         {#if search === "firstname"}
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label>First Name: </label>
-            <input type="text" bind:value={searchValue} on:input={searchByDate}>
+            <input type="text" bind:value={searchValue} placeholder="Input First Name" on:input={searchByDate} class="uInput">
         {/if}
         {#if search === "lastname"}
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label>Last Name: </label>
-            <input type="text" bind:value={searchValue} on:input={searchByDate}>
+            <input type="text" bind:value={searchValue} placeholder="Input Last Name" on:input={searchByDate} class="uInput">
+        {/if}
+        {#if search === "id"}
+            <input type="text" placeholder="ID" class="uInput">
         {/if}
     </div>
-    <div class="functions">
-        <label for="">Show Payment status: </label>
-        <select name="" bind:value={sortStatus} on:change={sortByPayment} id="">
+    <button on:click={clearFilter}>Clear Filter</button>
+    <div class="functions" style="display:flex;flex-direction: row;">
+        <label for=""  class="functionLabel">Show Payment status:</label>
+        <select name="" bind:value={sortStatus} on:change={sortByPayment}  class="functionSelect">
             <option value="true">Paid</option>
-			<option value="false" selected>No Payment</option>
+            <option value="false">No Payment</option>
         </select> 
     </div>
 </div>
+
 {#if listOfBooking === null}
     <h1>loading appointments</h1>
     {:else}
@@ -146,11 +155,6 @@
                 </tr>
             {/each}
         </table>
-        <div style="margin: 20px;">
-            <div id="printPdf">
-                <button id="print" on:click={createReport}>Print as PDF</button>
-            </div>
-        </div>
 {/if}
 
 <style>
@@ -159,6 +163,39 @@
 
     .functions{
         margin: 10px;
+    }
+    .uInput {
+        border: rgba(0,0,0,0.46);
+        border-radius: 8px;
+        width: 200px;
+        height: 20px;
+        padding: 10px;
+        margin-left: 10px;
+        box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+        -webkit-box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+        -moz-box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+    }
+    .functionLabel {
+        background-color: #2b2b2b;
+        color: whitesmoke;
+
+        font-size: 18px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        padding: 5px;
+    }
+    .functionSelect {
+        border: rgba(0,0,0,0.46);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+        width: 170px;
+        height: 40px;
+        padding: 10px;
+        box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
     }
 
     #appointmentTable{
