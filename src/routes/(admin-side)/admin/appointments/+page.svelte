@@ -241,19 +241,4 @@
         text-align: center;
         padding: 6px 12px;
     }
-
-    #print{
-        font-family: 'Oswald';
-        font-weight: 400;
-        font-size: 30px;
-        color: whitesmoke;
-
-        background-color: rgb(143, 0, 0);
-        border: 1px solid rgb(54, 26, 26);
-        border-radius: 5px;
-        margin-left: 10px;
-    }
-	#print:hover {
-		background-color: #c70000;
-	}
 </style>
