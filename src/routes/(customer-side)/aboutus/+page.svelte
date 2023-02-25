@@ -27,7 +27,7 @@
 		<h3>CONNECT WITH US!</h3>
 		<hr>
 		<p>
-			ADDRESS: <br>2nd Floor Harmony Village Mall Left Side Entrance Olympia Street, San Pedro, Laguna
+			ADDRESS: <br>Brgy, 1455 A National HighWay, San Pedro, 4023 Laguna
 		</p>
 		<p>
 			CONTACTS: <br>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958
@@ -144,7 +144,7 @@
 		border-radius: 5px;
 
 		font-weight: 600;
-		height: 500px;
+		height: 100%;
 	}
 	#contactInfo p {
 		padding-left: 20px;

@@ -22,8 +22,14 @@
 	</div>
     <div class="footerContact">
         <h3>Address</h3>
-        <p>2nd Floor Harmony Village Mall Left Side Entrance <br>Olympia Street, San Pedro, Laguna</p>
+        <p>Brgy, 1455 A National HighWay, San Pedro, 4023 Laguna</p>
+        <br>
 	</div>
+    <hr>
+    <div style="text-align: center;padding:5px 5px 5px 5px;display: flex;flex-direction: column;justify-content: space-evenly;">
+        <a href="/aboutus" style="font-size: 20px;color:whitesmoke;">Learn more about us</a>
+        <p style="margin-top:20px;">Copyright © 2022 - All right reserved by Kuya Wheels Driving School</p>
+    </div>
 </footer>
 
 <style>
@@ -46,5 +52,8 @@
     }
     .labels{
         text-decoration: underline;
+    }
+    hr {
+        border: 1px solid whitesmoke;
     }
 </style>
