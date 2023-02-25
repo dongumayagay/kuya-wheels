@@ -53,7 +53,7 @@
     <button on:click={clearFilter} id="clearBtn">Clear Filter</button>
 </div>    
 {#if listOfBooking === null}
-    <h1>loading appointments</h1>
+    <h1>loading payments</h1>
     {:else}
     <!-- cellspacing="3" bgcolor="#000000" -->
         <table id="paymentTable">
