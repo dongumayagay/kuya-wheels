@@ -11,13 +11,15 @@
 	let date = ""
 	let email = ""
 	let coursetaken = ""
-	let showOtpInput = false
 	let randomcode
 	let otpGuessinput
 	let btnDisable = false
 
 	const bookingsCol = collection(db, "bookings")
 
+	async function cancelOtp() {
+		btnDisable =  false
+	}
 	async function sendOtp() {
 	
 		// Generates and sends an OTP code to the email
@@ -38,7 +40,6 @@
 			return
 		} 
 		await sendOtp()
-		showOtpInput = true
 	}
 	async function checkOtp() {
 		if (randomcode !== otpGuessinput){
@@ -46,7 +47,7 @@
 			return
 		}
 		await createBooking()
-		showOtpInput = false
+		btnDisable = false
 	}
 	async function createBooking() {
 		const booking = {
@@ -118,7 +119,7 @@
 				</div>
 				<div class="column-input">
 					<label for="">Contact Number</label>
-					<input type="text" placeholder="Enter your contact number" bind:value={cnumber} required>
+					<input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" minlength="11" maxlength="11" placeholder="09123456789" pattern={String.raw`^(09)\d{9}$`} bind:value={cnumber} required >
 				</div>
 			</div>
 
@@ -158,7 +159,7 @@
 		<!-- <button>Submit</button> -->
 	</div>
 </form>
-{#if showOtpInput === true}
+{#if btnDisable === true}
 <div id="blur">
 	<div id="otpDialog">
 		<p>Please input the OTP code sent to your provided Email</p>
@@ -166,6 +167,7 @@
 			<form on:submit|preventDefault={checkOtp}>
 				<input type="text" bind:value={otpGuessinput} required>
 				<button id="otpBtn">Confirm</button>
+				<button on:click={cancelOtp}>Cancel</button>
 			</form>
 		</div>
 	</div>

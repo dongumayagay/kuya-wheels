@@ -1,22 +1,37 @@
 <script>
 	import { db } from '$lib/firebase'
-    import { updateDoc, doc, getDoc } from 'firebase/firestore'
+    import { updateDoc, doc, getDoc, increment, deleteDoc } from 'firebase/firestore'
+    import { goto } from '$app/navigation'
 
     /** @type {import('./$types').PageData} */
     export let data;
     export let statusNP = "No payment";
     export let statusP = "Paid"
+    let statusN = ""
     let resched = false
+    let reschedDate
 
-    async function reschedDialog() {
-        if (resched == false) {
-            resched = true
-            return
-        }
-        if (resched == true) {
-            resched = false
-            return
-        }
+    async function deleteBooking(){
+        const choice = confirm("Are you sure you want to cancel your Booking?")
+		console.log(choice)
+
+		if (choice) {
+            await deleteDoc(doc(db, "bookings", data.booking.id))
+            alert("Your booking has been cancelled")
+            await goto("/book")
+		}
+        
+    }
+    async function reschedToggle() {
+        resched = !resched
+    }
+    async function submitResched() {
+        const docRef = doc(db, "bookings", data.booking.id)
+        await updateDoc(docRef, {
+            date:reschedDate,
+            rescheduleCount:increment(1)
+        })
+        resched = false
     }
     async function gotoPayment() {
             const options = {
@@ -95,16 +110,18 @@
         <div class="column">
             {#if data.booking.isDownpaymentPaid === false}
                 <input type="text" bind:value={statusNP} readonly>
-            {/if}
-            {#if data.booking.isDownpaymentPaid !== false}
+            
+            {:else if data.booking.isDownpaymentPaid === true}
                 <input type="text" bind:value={statusP} readonly>
+                {:else}
+                <input type="text" readonly>
             {/if}
         </div>
     </div>
 
     {#if data.booking.isDownpaymentPaid === false && data.booking.paymentReferrencenumber === ""}
         <button on:click={gotoPayment}>Go to Down Payment</button>
-        <button id="cancelBtn">Cancel Booking</button>
+        <button id="cancelBtn" on:click={deleteBooking}>Cancel Booking</button>
     {/if}
     {#if data.booking.isDownpaymentPaid === false && data.booking.paymentReferrencenumber !== ""}
         <h1 style="margin-bottom:0px;">
@@ -113,21 +130,21 @@
         <h2>or</h2>
         <button on:click={gotoPayment}>Generate payment link again</button>
     {/if}
-    {#if data.booking.isDownpaymentPaid === true}
+    {#if data.booking.isDownpaymentPaid === true && data.booking.rescheduleCount < 2}
         <p style="text-align: center;border: 1.5px solid rgb(102, 87, 0);background-color: rgba(0,0,0,0.8);color: whitesmoke;">You're paid and expected to come at the Date of Appointment</p>
-        <button id="reschedBtn" on:click={reschedDialog}>Reschedule</button>
+        <button id="reschedBtn" on:click={reschedToggle}>Reschedule</button>
     {/if}
 </main>
 {#if resched == true}
     <div id="blur">
-        <div id="reschedTab">
+        <form id="reschedTab" on:submit|preventDefault={submitResched}>
             <div class="rPanel" style="background-color: rgba(0,0,0,0.8);margin: 0px;color: whitesmoke;"> 
                 <h1>Please choose a date to Reschedule</h1>
                 <p>Note: You're only given 2 attempts at rescheduling</p>
             </div>
             <div class="rPanel">
                 <label for="">Date:</label>
-                <input type="date" required
+                <input type="date" required bind:value={reschedDate}
                 min={new Intl.DateTimeFormat('fr-CA', {
                     year: 'numeric',
                     month: '2-digit',
@@ -135,11 +152,11 @@
                 }).format(new Date(Date.now() + 3600 * 1000 * 24))}
                 >
                 <div style="width: 100%;display:flex;flex-direction:row;">
-                    <button id="cancelRBtn" on:click={reschedDialog}>Cancel</button>
+                    <button id="cancelRBtn" on:click={reschedToggle} type="button">Cancel</button>
                     <button id="submitRBtn">Submit</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 {/if}
 
