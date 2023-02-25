@@ -4,13 +4,22 @@
     import { onDestroy } from "svelte"
 
     let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true))
-    let paymentQuery = query(collection(db, "payments"))
+    let appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
     let listOfBooking = []
-    let listOfPayment = []
-    let amount = "sample"
-    let finalAmount = "P" + amount
 
+    let search 
+    let searchValue 
+    let searchLower 
+
+    async function clearFilter() {
+        appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
+        searchValue = null
+        search = "date"
+    }
+    async function searchByDate() {
+        searchLower = searchValue.toLowerCase()      
+        appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", "==", true), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
+    }
     async function getAppointments() {
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
             listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
@@ -22,13 +31,27 @@
 
 <h1 style="margin:5px 0 5px 0;text-align:center;">Payments</h1>
 <hr style="border: 1px solid rgba(20, 20, 20, 0.7);width: 99%;">
-<div style="align-items: center; margin-top:20px;margin-left:30px;">
-    <label for="">Payments for Course: </label>
-    <select>
-        <option value="Practical Driving 3" selected>Practical Driving Course 3</option>
-    </select> 
-</div>
 <br>
+<div style="display:flex;justify-content:space-between;flex-direction: row;align-items: center;margin:0 20px 0 20px;">
+    <div class="functions" style="display:flex;flex-direction: row;">
+        <label for="" class="functionLabel">Search by:</label>
+        <select name="" bind:value={search} class="functionSelect">
+            <option value="date" selected>Date</option>
+            <option value="firstname">First Name</option>
+            <option value="lastname">Last Name</option>
+        </select>
+        {#if search === "date"}
+            <input type="date" bind:value={searchValue} on:change={searchByDate} class="uInput">
+        {/if}
+        {#if search === "firstname"}
+            <input type="text" bind:value={searchValue} placeholder="Input First Name" on:input={searchByDate} class="uInput">
+        {/if}
+        {#if search === "lastname"}
+            <input type="text" bind:value={searchValue} placeholder="Input Last Name" on:input={searchByDate} class="uInput">
+        {/if}
+    </div>
+    <button on:click={clearFilter} id="clearBtn">Clear Filter</button>
+</div>    
 {#if listOfBooking === null}
     <h1>loading appointments</h1>
     {:else}
@@ -36,43 +59,79 @@
         <table id="paymentTable">
             <tr id="fieldname">
             <th>ID</th>
-            <th>Date Paid</th>
-            <th>Amount</th>
-            <th>Payment Method</th>
-            <th>Course</th>
+            <th>Date</th>
             <th>Last Name</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Email</th>
             <th>Contact No.</th>
+            <th>Date Paid</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
             </tr>
             {#each listOfBooking as item}
                 <tr id="fields">
                     <td>{item.id}</td>
-                    <td>sample</td>
-                    <td>{finalAmount}</td>
-                    <td>sample</td>
-                    <td>{item.course}</td>
+                    <td>{item.date}</td>
                     <td>{item.lastnameDisplay}</td>
                     <td>{item.firstnameDisplay}</td>
-                    {#if item.middlename == ""}
-                        <td>N/A</td>
+                    <td>
+                        {#if item.middlename == ""}
+                        N/A
                         {:else}
-                        <td>{item.middlename}</td>
-                    {/if}
+                        {item.middlename}
+                        {/if}
+                    </td>
                     <td>{item.email}</td>
                     <td>{item.contactnumber}</td>
+                    <td>{item.datePaid}</td>
+                    <td>{"P"+item.amount}</td>
+                    <td>{item.payMethod}</td>
                 </tr>
             {/each}
         </table>
-        <div style="margin: 20px;">
-            <div id="printPdf">
-                <button id="print">Print as PDF</button>
-            </div>
-        </div>
 {/if}
 
 <style>
+    .functions{
+        margin: 10px;
+    }
+    .uInput {
+        border: rgba(0,0,0,0.46);
+        border-radius: 8px;
+        width: 200px;
+        height: 20px;
+        padding: 10px;
+        margin-left: 10px;
+        box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+        -webkit-box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+        -moz-box-shadow: -1px 1px 6px 0px rgba(0,0,0,0.46);
+    }
+    .functionLabel {
+        background-color: #2b2b2b;
+        color: whitesmoke;
+
+        font-size: 18px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        padding: 5px;
+    }
+    .functionSelect {
+        border: rgba(0,0,0,0.46);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+        width: 170px;
+        height: 40px;
+        padding: 10px;
+        box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+    }
+    #clearBtn {
+        padding: 5px;
+    }
     #paymentTable{
         border-spacing: 0;
 
@@ -116,19 +175,4 @@
         text-align: center;
         padding: 6px 12px;
     }
-
-    #print{
-        font-family: 'Oswald';
-        font-weight: 400;
-        font-size: 30px;
-        color: whitesmoke;
-
-        background-color: rgb(143, 0, 0);
-        border: 1px solid rgb(54, 26, 26);
-        border-radius: 5px;
-        margin-left: 10px;
-    }
-	#print:hover {
-		background-color: #c70000;
-	}
 </style>
