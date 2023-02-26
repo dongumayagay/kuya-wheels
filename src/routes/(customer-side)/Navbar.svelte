@@ -13,16 +13,14 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: flex-end;
-		padding: 0.5em;
+		padding: 10px;
 
 	}
 	.link-container{
 		margin-right: 10px;
 		display: flex;
 		flex-direction: flex-end;
-		font-size: 1.3em;
-		/*font-family: fantasy; */
-		/* margin-right: 1.5em; */
+		font-size: 20px
 	}
 	a{
 		color: whitesmoke;

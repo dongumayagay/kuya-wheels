@@ -152,11 +152,6 @@
 		</div>
 		<br>
 		<button disabled={btnDisable}>Submit</button>
-		<!-- {#if showOtpInput === false}
-			<button disabled={btnDisable}>Submit</button>
-		{/if} -->
-		
-		<!-- <button>Submit</button> -->
 	</div>
 </form>
 {#if btnDisable === true}
@@ -184,10 +179,10 @@
 
 	}
 	h1{
-		font-size: 3em;
+		font-size: 35px;
 	}
 	h2{
-		font-size: 1.3em;
+		font-size: 20px;
 	}
 	.courses{
 		width: 50%;

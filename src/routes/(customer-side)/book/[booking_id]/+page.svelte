@@ -62,10 +62,6 @@
 
 </script>
 
-<!-- <pre>
-    {JSON.stringify(data.booking, null, 2)}
-    {data.booking.firstname}
-</pre> -->
 <main id=statusForm>
     <h1>Appointment Status</h1>
     <div class="row">

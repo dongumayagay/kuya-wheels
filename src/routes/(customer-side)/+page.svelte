@@ -18,17 +18,6 @@
 			Since the driving school's founding in 2020, top-notch education and instruction has always been delivered to its students. 
             Everyone goes through the proper process of learning what they need to know.
         </h3>
-		<!-- <div style="display: flex; flex-direction:row;margin-bottom:50px">
-			<div id="Pictures">
-				<img src="/proof2.jpg" alt="proof2" id="proof2">
-			</div>
-			<div id="Pictures">
-				<img src="/proof3.jpg" alt="proof3" id="proof3">
-			</div>
-			<div id="Pictures">
-				<img src="/proof4.jpg" alt="proof4" id="proof4">
-			</div>
-		</div> -->
 	</div>
 </div>
 <br>
