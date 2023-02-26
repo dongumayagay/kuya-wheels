@@ -1,49 +1,35 @@
 <script>
-    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc, documentId } from "firebase/firestore"
+    import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
     import { onDestroy } from "svelte"
-    // import { jsPDF } from 'jspdf'
+
+    let appointments = null
+    let appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
+    let listOfBooking = []
 
     let search 
     let searchValue 
     let searchLower 
-    let sortStatus = ""
-    let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'), limit(15))
-    let listOfBooking = []
 
-    export let statusNP = "No payment";
-    export let statusP = "Paid"
-
+    async function clearFilter() {
+        appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
+        searchValue = null
+        search = "date"
+    }
+    async function searchByDate() {
+        searchLower = searchValue.toLowerCase()      
+        appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", "==", true), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
+    }
     async function getAppointments() {
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
             listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
         })
         onDestroy(() => unsubscribe())
     }
-    async function clearFilter() {
-        appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
-        searchValue = null
-        search = "date"
-        sort = "date"
-        sortStatus = ""
-    }
-    async function searchByDate() {
-        searchLower = searchValue.toLowerCase()      
-        appointmentQuery = query(collection(db, "bookings"), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
-    }
-    async function sortByPayment() {
-        
-        if (sortStatus === "true") {
-            appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
-        }else{
-            appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', false), orderBy("date", 'asc'))
-        }
-    }
     $: getAppointments(appointmentQuery)
 </script>
 
-<h1 style="margin:5px 0 5px 0;text-align:center;">Appointments</h1>
+<h1 style="margin:5px 0 5px 0;text-align:center;">Payments</h1>
 <hr style="border: 1px solid rgba(20, 20, 20, 0.7);width: 99%;">
 <br>
 <div style="display:flex;justify-content:space-between;flex-direction: row;align-items: center;margin:0 20px 0 20px;">
@@ -64,21 +50,13 @@
             <input type="text" bind:value={searchValue} placeholder="Input Last Name" on:input={searchByDate} class="uInput">
         {/if}
     </div>
-    <button on:click={clearFilter} style="padding:5px;">Clear Filter</button>
-    <div class="functions" style="display:flex;flex-direction: row;">
-        <label for=""  class="functionLabel">Show Payment status:</label>
-        <select name="" bind:value={sortStatus} on:change={sortByPayment}  class="functionSelect">
-            <option value="true">Paid</option>
-            <option value="false">No Payment</option>
-        </select> 
-    </div>
-</div>
-
+    <button on:click={clearFilter} id="clearBtn">Clear Filter</button>
+</div>    
 {#if listOfBooking === null}
-    <h1>loading appointments</h1>
+    <h1>loading payments</h1>
     {:else}
     <!-- cellspacing="3" bgcolor="#000000" -->
-        <table id="appointmentTable">
+        <table id="paymentTable">
             <tr id="fieldname">
             <th>ID</th>
             <th>Date</th>
@@ -87,8 +65,9 @@
             <th>Middle Name</th>
             <th>Email</th>
             <th>Contact No.</th>
-            <th>Payment Status</th>
-            <th>Course</th>
+            <th>Date Paid</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
             </tr>
             {#each listOfBooking as item}
                 <tr id="fields">
@@ -96,31 +75,24 @@
                     <td>{item.date}</td>
                     <td>{item.lastnameDisplay}</td>
                     <td>{item.firstnameDisplay}</td>
-                    {#if item.middlename == ""}
-                        <td>N/A</td>
-                        {:else}
-                        <td>{item.middlename}</td>
-                    {/if}
-                    <td>{item.email}</td>
-                    <td>{item.contactnumber}</td>
                     <td>
-                        {#if item.isDownpaymentPaid === false}
-                            {statusNP}
-                        {/if}
-                        {#if item.isDownpaymentPaid !== false}
-                            {statusP}
+                        {#if item.middlename == ""}
+                        N/A
+                        {:else}
+                        {item.middlename}
                         {/if}
                     </td>
-                    <td>{item.course}</td>
+                    <td>{item.email}</td>
+                    <td>{item.contactnumber}</td>
+                    <td>{item.datePaid}</td>
+                    <td>{"P"+item.amount}</td>
+                    <td>{item.payMethod}</td>
                 </tr>
             {/each}
         </table>
 {/if}
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
-    @import url('https://fonts.googleapis.com/css?family=Lato');
-
     .functions{
         margin: 10px;
     }
@@ -157,8 +129,10 @@
         -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
         -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
     }
-
-    #appointmentTable{
+    #clearBtn {
+        padding: 5px;
+    }
+    #paymentTable{
         border-spacing: 0;
 
         margin: 10px;

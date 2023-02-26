@@ -11,12 +11,15 @@
 	let date = ""
 	let email = ""
 	let coursetaken = ""
-	let showOtpInput = false
 	let randomcode
 	let otpGuessinput
+	let btnDisable = false
 
 	const bookingsCol = collection(db, "bookings")
 
+	async function cancelOtp() {
+		btnDisable =  false
+	}
 	async function sendOtp() {
 	
 		// Generates and sends an OTP code to the email
@@ -28,7 +31,7 @@
 		})
 	}
 	async function checkifDatebooked() {
-
+		btnDisable = true		
 		//Checking if data has already been booked
 		const q = query(bookingsCol, where("date", "==", date))
 		const snapshot = await getCountFromServer(q)
@@ -37,7 +40,6 @@
 			return
 		} 
 		await sendOtp()
-		showOtpInput = true
 	}
 	async function checkOtp() {
 		if (randomcode !== otpGuessinput){
@@ -45,7 +47,7 @@
 			return
 		}
 		await createBooking()
-		showOtpInput = false
+		btnDisable = false
 	}
 	async function createBooking() {
 		const booking = {
@@ -59,7 +61,8 @@
 		date:date, 
 		email:email,
 		isDownpaymentPaid:false,
-		paymentReferrencenumber:""
+		paymentReferrencenumber:"",
+		rescheduleCount:0,
 		}
 		const createdBooking = await addDoc(bookingsCol, booking)
 		await sendEmail({
@@ -80,7 +83,7 @@
 		<h1 style="margin-bottom: 10px;">Available Course/s:</h1>
 		<div>
 			<select>
-				<option value="Practical Driving Course R3" selected>Practical Driving Course R3</option>
+				<option value="Practical Driving Course 3" selected>Practical Driving Course 3</option>
 			</select> 
 		</div>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
@@ -116,7 +119,7 @@
 				</div>
 				<div class="column-input">
 					<label for="">Contact Number</label>
-					<input type="text" placeholder="Enter your contact number" bind:value={cnumber} required>
+					<input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" minlength="11" maxlength="11" placeholder="09123456789" pattern={String.raw`^(09)\d{9}$`} bind:value={cnumber} required >
 				</div>
 			</div>
 
@@ -141,36 +144,36 @@
 				<div class="column-input">
 					<label for="cars">Course to take:</label>
 					<select name="course" bind:value={coursetaken} required>
-						<option value="Practical Driving 2">Practical Driving 2</option>
-						<option value="Truck Parking">Truck Parking</option>
-						<option value="Bus Parking">Bus Parking</option>
+						<option value="PDC 3">Practical Driving Course 3</option>
 					</select>
 				</div>
 
 			</div>
 		</div>
 		<br>
-		{#if showOtpInput === false}
-			<button>Submit</button>
-		{/if}
-		{#if showOtpInput === true}
-			<p>Please input the OTP code sent to your provided Email</p>
-			<form on:submit|preventDefault={checkOtp}>
-				<input type="text" bind:value={otpGuessinput} required>
-				<button>submit</button>
-			</form>
-		{/if}
+		<button disabled={btnDisable}>Submit</button>
+		<!-- {#if showOtpInput === false}
+			<button disabled={btnDisable}>Submit</button>
+		{/if} -->
+		
 		<!-- <button>Submit</button> -->
 	</div>
 </form>
-<!-- <dialog open={showOtpInput}> -->
-	<!-- <dialog open>
+{#if btnDisable === true}
+<div id="blur">
+	<div id="otpDialog">
 		<p>Please input the OTP code sent to your provided Email</p>
-		<form on:submit|preventDefault={checkOtp}>
-			<input type="text" bind:value={otpGuessinput} required>
-			<button>submit</button>
-		</form>
-	</dialog> -->
+		<div style="width: 100%;">
+			<form on:submit|preventDefault={checkOtp}>
+				<input type="text" bind:value={otpGuessinput} required>
+				<button id="otpBtn">Confirm</button>
+				<button on:click={cancelOtp}>Cancel</button>
+			</form>
+		</div>
+	</div>
+</div>
+{/if}
+
 <style>
 	form{
 		
@@ -207,12 +210,6 @@
 		box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
 		-webkit-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
 		-moz-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
-
-		/* margin: auto; */
-		/* background-color: #DF362D; */
-		
-		/* margin-top: 30px;
-		margin-bottom: 30px; */
 	}
 	#uinput {
 		display: flex;
@@ -259,5 +256,33 @@
 	}
 	button:hover {
 		background-color: #36a83a;
+	}
+	#blur {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		height: 100vh;
+		width: 100vw;
+		background-color: rgba(0,0,0,0.5);
+	}
+	#otpDialog{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		background-color: #ff944d;
+		border: 4px solid rgba(70, 28, 0, 0.8);
+		border-radius: 10px;
+
+		padding: 20px;
+	}
+	#otpDialog p {
+		font-size: 17px;
+		margin-bottom: 0;
+	}
+	#otpBtn {
+		width: auto;
 	}
 </style>

@@ -2,16 +2,17 @@
     import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, getCountFromServer } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
 	import { onDestroy } from "svelte";
+    import { jsPDF } from 'jspdf'
     
-    var date =  new Date();
-    var dd = String(date.getDate()).padStart(2, '0'); 
-    var ddt = String(date.getDate() + 1).padStart(2, '0'); 
-    var mm = String(date.getMonth() + 1).padStart(2, '0'); 
-    var yyyy = date.getFullYear(); 
-    var newDate = yyyy + "-" + mm + "-" +dd;
-    var tomDate = yyyy + "-" + mm + "-" +ddt; 
-    var todayBtn = "<"
-    var tomorrowBtn = ">"
+    let date =  new Date();
+    let dd = String(date.getDate()).padStart(2, '0'); 
+    let ddt = String(date.getDate() + 1).padStart(2, '0'); 
+    let mm = String(date.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = date.getFullYear(); 
+    let newDate = yyyy + "-" + mm + "-" +dd;
+    let tomDate = yyyy + "-" + mm + "-" +ddt; 
+    let todayBtn = "<"
+    let tomorrowBtn = ">"
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let appointmentTomQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
@@ -79,6 +80,37 @@
         })
         onDestroy(() => unsubscribe())
     }
+    async function createReportToday(){
+
+        const pdf = new jsPDF()
+        const reportQuery =  query(collection(db, "bookings"), where("date", "==", newDate))
+        const reportSnapshot = await getDocs(reportQuery)
+        let text = ""
+        reportSnapshot.forEach(bookings => {
+            text += `ID: ${bookings.id}\n`
+            text += `First Name: ${bookings.data().firstnameDisplay}\n\n`
+        })
+
+        pdf.text(text, 10, 18)
+        pdf.save("test.pdf")
+    }
+    async function createReportTomorrow(){
+
+        const pdf = new jsPDF()
+        const reportQuery =  query(collection(db, "bookings"), where("date", "==", tomDate))
+        const reportSnapshot = await getDocs(reportQuery)
+        let text = ""
+        reportSnapshot.forEach(bookings => {
+            text += `id: ${bookings.id}\n`
+            text += `first: ${bookings.data().firstnameDisplay}\n\n`
+            
+        })
+
+        pdf.text(text, 10, 18)
+        pdf.save("test.pdf")
+
+        pdf.table()
+    }
 
     getTomorrowBookingcount()
     getPaidTomorrowBookingcount()
@@ -96,9 +128,9 @@
 
 <h1>Welcome, Admin!</h1>
 <hr>
-<div style="align-items: center; margin-top:20px;margin-left:30px;">
-    <label for="">Bookings for Course: </label>
-    <select>
+<div style="display:flex;flex-direction: row;justify-content:flex-start; margin-top:20px;margin-left:30px;">
+    <label for="" class="categoryLabel">Bookings for Course: </label>
+    <select class="categorySelect">
         <option value="Practical Driving Course 3">Practical Driving Course 3</option>
     </select> 
 </div>
@@ -194,7 +226,7 @@
                 </table>
                 <div style="margin: 20px 20px 20px 10px;">
                     <div id="printPdf">
-                        <button id="print">Print as PDF</button>
+                        <button id="print" on:click={createReportTomorrow}>Print as PDF</button>
                     </div>
                 </div>
                 {/if}
@@ -247,7 +279,7 @@
                 </table>
                 <div style="margin: 20px 20px 20px 10px;">
                     <div id="printPdf">
-                        <button id="print">Print as PDF</button>
+                        <button id="print" on:click={createReportToday}>Print as PDF</button>
                     </div>
                 </div>
                 {/if}
@@ -300,6 +332,28 @@
     }
     select{
         width: 150px;
+    }
+    .categoryLabel {
+        background-color: #2b2b2b;
+        color: whitesmoke;
+
+        font-size: 18px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        padding: 5px;
+    }
+    .categorySelect {
+        border: rgba(0,0,0,0.46);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+        width: auto;
+        height: 40px;
+        padding: 10px;
+        box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
+        -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.46);
     }
     #panel{
         display: flex;
@@ -370,6 +424,7 @@
     }
     .arrowBtn:hover{
         background-color: #f0850b;
+        cursor: pointer;
     }
     #print{
         font-family: 'Oswald';

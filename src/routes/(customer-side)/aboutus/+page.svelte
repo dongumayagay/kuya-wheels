@@ -27,7 +27,7 @@
 		<h3>CONNECT WITH US!</h3>
 		<hr>
 		<p>
-			ADDRESS: <br>2nd Floor Harmony Village Mall Left Side Entrance Olympia Street, San Pedro, Laguna
+			ADDRESS: <br>Brgy, 1455 A National HighWay, San Pedro, 4023 Laguna
 		</p>
 		<p>
 			CONTACTS: <br>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958
@@ -55,13 +55,32 @@
 				and passing every one of them with flying colors. His ever-expanding arsenal of National Certificates are proof of his 
 				dedication to his craft. These are:
 			</h5>
-			<p>
+			<!-- <p>
 				- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
 				- NC III in DRIVING (ARTICULATED VEHICLE)<br>- NC III in AUTOMOTIVE SERVICING<br>- NC II in AUTOMOTIVE SERVICING (CHASSIS REPAIR)<br>
-				- NC II in AUTOMOTIVE SERVICING (ELECTRICAL REPAIR)<br>- NC II in AUTOMOTIVE SERVICING (ENGINE REPAIR)<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING NC II<br>
+				- NC II in AUTOMOTIVE SERVICING (ELECTRICAL REPAIR)<br>- NC II in AUTOMOTIVE SERVICING (ENGINE REPAIR)
+				<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING NC II<br>
 				- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING (PASSENGER BUS/STRAIGHT TRUCK) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (CHASSIS REPAIR) NC II<br>- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>
 				- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>- TRAINERS METHODOLOGY CERTIFICATE I
-			</p>
+			</p> -->
+			<div style="display: flex;justify-content:space-between;text-align:left;">
+				<p>
+					- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
+					- NC III in DRIVING (ARTICULATED VEHICLE)<br>
+					- NC III in AUTOMOTIVE SERVICING<br>
+					- NC II in AUTOMOTIVE SERVICING (CHASSIS REPAIR)<br>
+					- NC II in AUTOMOTIVE SERVICING (ELECTRICAL REPAIR)<br>
+					- NC II in AUTOMOTIVE SERVICING (ENGINE REPAIR)
+				</p>
+				<p>
+					- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING NC II<br>
+					- NATIONAL TVET TRAINER CERTIFICATE Level I in DRIVING (PASSENGER BUS/STRAIGHT TRUCK) NC II<br>
+					- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (CHASSIS REPAIR) NC II<br>
+					- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>
+					- NATIONAL TVET TRAINER CERTIFICATE Level I in AUTOMOTIVE SERVICING (ENGINE REPAIR) NC II<br>
+					- TRAINERS METHODOLOGY CERTIFICATE I
+				</p>
+			</div>
 		</div>
 		<div id="reminderMess">
 			<h2>Learning to drive isn't only to know how to handle a vehicle, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
@@ -77,8 +96,6 @@
 		height: 95%;
 	}
 	#profileForm {
-		border-radius: 10px;
-		margin: 20px;
 		display: flex;
 		flex-direction: row;
 	}
@@ -88,10 +105,10 @@
 	}
 	#profileInfo{
 		color: whitesmoke;
-		font-size: 1.2em;
+		font-size: 20px;
 
-		border-top-right-radius: 8px;
-		border-bottom-right-radius: 8px;
+		/* border-top-right-radius: 8px;
+		border-bottom-right-radius: 8px; */
 
 		display: flex;
 		flex-direction: column;
@@ -127,7 +144,7 @@
 		border-radius: 5px;
 
 		font-weight: 600;
-		height: 500px;
+		height: 100%;
 	}
 	#contactInfo p {
 		padding-left: 20px;
@@ -148,17 +165,16 @@
 	}
 	h2{
 		text-align: center;
-		font-size: 1.5em;
 	}
 	h3{
 		text-align: center;
 	}
 	h4{
 		text-align: center;
-		font-size: 2em;
+		font-size: 30px;
 	}
 	h5{
-		font-size: 1.5em;
+		font-size: 20px;
 	}
 	hr {
 		border: 1px solid rgba(20, 20, 20, 0.7);

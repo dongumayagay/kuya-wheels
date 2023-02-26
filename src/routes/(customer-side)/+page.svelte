@@ -15,7 +15,7 @@
 		<h2>
 			Kuya Wheels Driving School offers driving education that you can count on!
 		</h2>
-		<h3>
+		<h3 style="color: rgb(255, 220, 174);text-align: center;">
 			Since the driving school's founding in 2020, top-notch education and instruction has always been delivered to its students. 
             Everyone goes through the proper process of learning what they need to know.
         </h3>
@@ -33,6 +33,80 @@
 	</div>
 </div>
 <br>
+<div style="display: flex;flex-direction:row;">
+	<div style="width:100%;margin-left:10px;padding:10px;text-align:center;">
+		<h1 style="margin-top: 0;">About Kuya Wheels Driving School</h1>
+		<p style="font-size: 18px;">
+			Kuya Wheels is a driving school company that provides services to teach future drivers the fundamentals
+			and basic knowledge about driving. For now, the company is focused on training drivers for Practical
+			Driving Course 3(PDC3) which mainly consists of vehicles, or better known as trucks, that carry weight.
+		</p>
+		
+		<div id="officeHours">
+			<h2 style="margin-top: 10px;">Office Hours</h2>
+			<div class="row">
+				<div class="column">
+					<h3>Monday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Tuesday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Wednesday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Thursday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Friday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Saturday</h3>
+				</div>
+				<div class="column">
+					<h3>7:00 AM - 5:00 PM</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<h3>Sunday</h3>
+				</div>
+				<div class="column">
+					<h3>No Office</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pageMap" style="margin-right:10px;">
+		<!-- svelte-ignore a11y-missing-attribute -->
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.343416484211!2d121.0619151143176!3d14.349526887028402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d7fc4200f08d%3A0x7e5f6568ee2fb87a!2sKuya%20Wheels%20Driving%20School!5e0!3m2!1sen!2sph!4v1677343191569!5m2!1sen!2sph" width="600" height="450" style="border:0;border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+</div>
 <div>
 	<div>
 		<h1>What we do</h1>
@@ -80,10 +154,6 @@
         color: rgb(255, 220, 174);
         font-size: 2em;
     }
-    h3{
-        color: rgb(255, 220, 174);
-        text-align: center;
-    }
 	.wPanel{
 		display: flex;
 		flex-direction: column;
@@ -111,6 +181,44 @@
 		color: whitesmoke;
 		font-weight: 300;
 		font-size: 20px;
+	}
+	#officeHours {
+		display: flex;
+		flex-direction: column;
+
+		width: 60%;
+		margin-left: auto;
+		margin-right: auto;
+		padding:0;
+		padding-bottom: 10px;
+
+		background-color: rgba(0,0,0,0.8);
+		border: 4px solid black;
+		border-radius: 5px;
+	}
+	#officeHours h3 {
+		margin: 0;
+		color: whitesmoke;
+	}
+	.column {
+		width: 100%;
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+
+		padding: 0px;
+	}
+	.pageMap {
+		border-radius: 10px;
+		
+		box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
+		-webkit-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
+	}
+	.pageMap iframe {
+		height: 100%;
 	}
     #proof2{
 		width: 100%;
