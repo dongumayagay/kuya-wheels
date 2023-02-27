@@ -2,7 +2,7 @@
 <footer>
     <div class="footerContact">
 		<h3>Contacts</h3>
-        <p>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958</p>
+        <p>+63 969 476 3734 -Smart<br>+63 992 320 9710 -Dito<br>+63 915 977 7958 -Globe</p>
         <p class=labels>TELEPHONE:</p>
 		<p>(02) 877-73441</p>
     </div>

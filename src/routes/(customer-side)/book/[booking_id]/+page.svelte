@@ -10,6 +10,7 @@
     let statusN = ""
     let resched = false
     let reschedDate
+    let reschedAttempt = (2 - data.booking.rescheduleCount)
 
     async function deleteBooking(){
         const choice = confirm("Are you sure you want to cancel your Booking?")
@@ -43,7 +44,7 @@
     },
     body: JSON.stringify({
         data: {
-        attributes: {amount: 10000, description: 'Kuya wheels Down payment', remarks: data.booking.id}
+        attributes: {amount: 50000, description: 'Kuya wheels Down payment', remarks: data.booking.id}
         }
     })
     };
@@ -100,6 +101,10 @@
     <hr>
     <br>
     <div class="row">
+        <div class="column"><label for="" style="display: flex;justify-content: center;">ID: </label></div>
+        <div class="column"><input type="text" bind:value={data.booking.id} readonly></div>
+    </div>
+    <div class="row">
         <div class="column"><label for="" style="display: flex;justify-content: center;">
             <label for="">Payment Status: </label>
         </div>
@@ -139,6 +144,7 @@
                 <p>Note: You're only given 2 attempts at rescheduling</p>
             </div>
             <div class="rPanel">
+                <p>Reschedule Attempts left: {reschedAttempt}</p>
                 <label for="">Date:</label>
                 <input type="date" required bind:value={reschedDate}
                 min={new Intl.DateTimeFormat('fr-CA', {
