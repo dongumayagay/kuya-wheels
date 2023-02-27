@@ -38,7 +38,6 @@
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        /* background-color: #ff8533; */
         background-color:  #ff944d;
     }
 </style>

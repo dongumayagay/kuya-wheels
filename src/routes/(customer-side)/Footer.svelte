@@ -1,13 +1,8 @@
 
 <footer>
-    <!-- <div>
-        <h1>
-            Click "Booking" to book an appointment for your chosen course now!
-        </h1>
-    </div> -->
     <div class="footerContact">
 		<h3>Contacts</h3>
-        <p>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958</p>
+        <p>+63 969 476 3734 -Smart<br>+63 992 320 9710 -Dito<br>+63 915 977 7958 -Globe</p>
         <p class=labels>TELEPHONE:</p>
 		<p>(02) 877-73441</p>
     </div>
@@ -27,8 +22,7 @@
 	</div>
     <hr>
     <div style="text-align: center;padding:5px 5px 5px 5px;display: flex;flex-direction: column;justify-content: space-evenly;">
-        <a href="/aboutus" style="font-size: 20px;color:whitesmoke;">Learn more about us</a>
-        <p style="margin-top:20px;">Copyright © 2022 - All right reserved by Kuya Wheels Driving School</p>
+        <p>Copyright © 2022 - All right reserved by Kuya Wheels Driving School</p>
     </div>
 </footer>
 

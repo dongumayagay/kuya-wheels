@@ -4,13 +4,8 @@
     import Navbar from './Navbar.svelte';
     
         // import '../app.postcss';
-    </script>
+</script>
     
-    
-    <!-- <Header />
-    <Navbar />
-    <slot />
-    <Footer /> -->
     <svelte:head>
         <title>
             Kuya Wheels Driving School
@@ -19,7 +14,6 @@
     <main>
         <Header />
         <Navbar />
-        <!-- <hr> -->
         <slot />
         <Footer />
     </main>
@@ -37,13 +31,7 @@
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            /* background-color: #ff8533; */
             background-color:  #ff944d;
         }
-        /* hr{
-            width: 95%;
-            border-radius: 100%;
-            border-color: black;
-        } */
     </style>
     

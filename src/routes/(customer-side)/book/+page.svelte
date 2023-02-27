@@ -27,7 +27,7 @@
 		await sendEmail({
 			to: email,
 			subject: 'Your OTP code',
-			html: `<h1>Your Kuya Wheels Driving Course OTP is: ${randomcode} </h1>`
+			html: `<h2>Your Kuya Wheels Driving Course OTP is: <h1>${randomcode}</h1> </h2>`
 		})
 	}
 	async function checkifDatebooked() {
@@ -68,7 +68,18 @@
 		await sendEmail({
 			to: email,
 			subject: 'Appointment Status Link',
-			html: `<a href="${$page.url.origin}/book/${createdBooking.id}">Click Here</a>`
+			html: `
+			<h1>Hello,</h1>
+			<h3>
+				Your booking for Kuya Wheels Driving School has been confirmed. 
+				You can check the status of your booking here: 
+			</h3>
+			<a href="${$page.url.origin}/book/${createdBooking.id}">Appointment Status</a>
+			<br>
+			<h4>
+				For more inquiries, please do contact us at kuyawheelsmain@gmail.com
+			</h4>
+			`
 		})
 		goto("/book/"+createdBooking.id)
 		// alert("Your reservation was booked successfully!")
@@ -88,10 +99,14 @@
 		</div>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
 			3,500kg but not exceeding 12,000kg.<br><br>
+			The course costs ₱5,000.00<br><br>
 			Requirements to bring:<br>
-			- Ballpen<br>- Notebook<br>- 1pc 2x2 picture<br>- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a period of at least one (1) year prior to the application<br><br>
-			
-			</h2>
+			- Ballpen<br>
+			- Notebook<br>
+			- 1pc 2x2 picture<br>
+			- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a 
+			period of at least one (1) year prior to the application
+		</h2>
 	</div>
 
 	<div id="aform">
@@ -152,11 +167,6 @@
 		</div>
 		<br>
 		<button disabled={btnDisable}>Submit</button>
-		<!-- {#if showOtpInput === false}
-			<button disabled={btnDisable}>Submit</button>
-		{/if} -->
-		
-		<!-- <button>Submit</button> -->
 	</div>
 </form>
 {#if btnDisable === true}
@@ -167,7 +177,7 @@
 			<form on:submit|preventDefault={checkOtp}>
 				<input type="text" bind:value={otpGuessinput} required>
 				<button id="otpBtn">Confirm</button>
-				<button on:click={cancelOtp}>Cancel</button>
+				<button on:click={cancelOtp} id="cancelBtn">Cancel</button>
 			</form>
 		</div>
 	</div>
@@ -184,10 +194,10 @@
 
 	}
 	h1{
-		font-size: 3em;
+		font-size: 35px;
 	}
 	h2{
-		font-size: 1.3em;
+		font-size: 20px;
 	}
 	.courses{
 		width: 50%;
@@ -256,6 +266,13 @@
 	}
 	button:hover {
 		background-color: #36a83a;
+	}
+	#cancelBtn {
+        color: whitesmoke;
+		background-color: #f44336;
+    }
+    #cancelBtn:hover {
+        background-color: #f02113;
 	}
 	#blur {
 		display: flex;

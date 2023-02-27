@@ -88,7 +88,11 @@
         let text = ""
         reportSnapshot.forEach(bookings => {
             text += `ID: ${bookings.id}\n`
-            text += `First Name: ${bookings.data().firstnameDisplay}\n\n`
+            text += `Last Name: ${bookings.data().lastnameDisplay}\n`
+            text += `First Name: ${bookings.data().firstnameDisplay}\n`
+            text += `Middle Name: ${bookings.data().middlename}\n`
+            text += `Payment Satus: ${bookings.data().isDownpaymentPaid}\n`
+            text += `Course: ${bookings.data().course}\n\n`
         })
 
         pdf.text(text, 10, 18)
@@ -101,9 +105,12 @@
         const reportSnapshot = await getDocs(reportQuery)
         let text = ""
         reportSnapshot.forEach(bookings => {
-            text += `id: ${bookings.id}\n`
-            text += `first: ${bookings.data().firstnameDisplay}\n\n`
-            
+            text += `ID: ${bookings.id}\n`
+            text += `Last Name: ${bookings.data().lastnameDisplay}\n`
+            text += `First Name: ${bookings.data().firstnameDisplay}\n`
+            text += `Middle Name: ${bookings.data().middlename}\n`
+            text += `Payment Satus: ${bookings.data().isDownpaymentPaid}\n`
+            text += `Course: ${bookings.data().course}\n\n`
         })
 
         pdf.text(text, 10, 18)
