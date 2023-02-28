@@ -3,16 +3,23 @@
     import { db } from "$lib/firebase.js"
 	import { onDestroy } from "svelte";
     import { jsPDF } from 'jspdf'
-    
+    import DayButton from './DayButton.svelte';
+
     let date =  new Date();
     let dd = String(date.getDate()).padStart(2, '0'); 
-    let ddt = String(date.getDate() + 1).padStart(2, '0'); 
+    // let ddt = String(date.getDate() + 1).padStart(2, '0'); 
     let mm = String(date.getMonth() + 1).padStart(2, '0'); 
     let yyyy = date.getFullYear(); 
     let newDate = yyyy + "-" + mm + "-" +dd;
-    let tomDate = yyyy + "-" + mm + "-" +ddt; 
     let todayBtn = "<"
     let tomorrowBtn = ">"
+
+    let d = new Date() // month is 0-based in the Date constructor
+    d.setDate(d.getDate() + 1)
+
+    let tomDate = d.toLocaleDateString('fr-CA')
+    // tomorrow.toISOString().slice(0, 10);
+    // tomorrow.toLocaleDateString('fr-CA');
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let appointmentTomQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
@@ -28,7 +35,55 @@
 
     export let statusNP = "No payment";
     export let statusP = "Paid"
-
+	
+	const daysOfTheWeek = [
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday'
+	];
+	const monthNames = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+	let currentYear = date.getFullYear();
+	let currentMonth = date.getMonth() + 1;
+	$: daysInCurrentMonth = getHowManyDaysInAMonth(currentYear, currentMonth);
+	$: dayOfTheWeekOfTheFirstDayOfTheMonth = getDayOfTheWeekOfTheFirstDayOfTheMonth(
+		currentYear,
+		currentMonth
+	);
+	$: console.log(currentMonth);
+	const previousMonth = () => {
+		currentMonth -= 1;
+		if (currentMonth < 1) {
+			currentMonth = 12;
+			currentYear -= 1;
+		}
+	};
+	const nextMonth = () => {
+		currentMonth += 1;
+		if (currentMonth > 12) {
+			currentMonth = 1;
+			currentYear += 1;
+		}
+	};
+	const getHowManyDaysInAMonth = (year, month) => new Date(year, month, 0).getDate();
+	const getDayOfTheWeekOfTheFirstDayOfTheMonth = (year, month) =>
+		new Date(year, month - 1, 1).getDay();
     async function switchDay() {
         if (dday == "today") {
             dday = "tomorrow"
@@ -296,27 +351,69 @@
     <!-- legend placement -->
 </div>
 {/if}
-<!-- <div style="display: flex; flex-direction: column;width:100%;">
+<hr>
+<div id="calendarBase">
+	<div id="calendar">
+		<section>
+			<div class="navBase">
+				<div class="navStart">
+					<button on:click={previousMonth} class="calBtn">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+                        </svg>
+					</button>
+				</div>
+				<div class="navCenter">
+					<h1 class="text-xl normal-case">{monthNames[currentMonth - 1]} {currentYear}</h1>
+				</div>
+				<div class="navEnd">
+					<button on:click={nextMonth} class="calBtn">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                        </svg>
+					</button>
+				</div>
+			</div>
+			<main class="daysCal">
+                <div style="display: flex;flex-direction:row;">
+                    {#each daysOfTheWeek as day}
+                        <button class="weekdays" disabled>
+                            {day}
+                        </button>
+                    {/each}
+                </div>
+				<div style="display: flex;flex-direction:row;flex-wrap:wrap;">
+                    {#each { length: dayOfTheWeekOfTheFirstDayOfTheMonth } as _}
+                        <button class="dayDisable" />
+                    {/each}
+                    {#each { length: daysInCurrentMonth } as _, i}
+                        <DayButton dayNumber={i + 1} month={currentMonth} year={currentYear} />
+                    {/each}
+                </div>
+			</main>
+		</section>
+	</div>
+
+    <div style="display: flex; flex-direction: column;width:25%;">
+        <h1 style="text-align: center;margin:20px 0 20px 0;">Calendar</h1>
         <div class="legendPanel">
             <h2>Legend</h2>
             <hr style="border: 1px solid rgba(207, 207, 207, 0.7);">
             <div style="display: flex; flex-direction: column;">
                 <div class="legends">
-                    <span style='background:red;'></span>
-                    <p>Unpaid</p>
+                    <span style='background:white;'></span>
+                    <p>Available</p>
                 </div>
                 <div class="legends">
                     <span style='background:green;'></span>
-                    <p>Paid</p>
+                    <p>Fully Booked</p>
                 </div>
+                <p>(Fully booked if there are 10 or more paid clients)</p>
             </div>
         </div>
-        <div style="margin: 20px;">
-            <div id="printPdf">
-                <button id="print">Print as PDF</button>
-            </div>
-        </div>
-    </div> -->
+    </div>
+</div>
+
 <style>
     @import url('https://fonts.googleapis.com/css?family=Lato');
 
@@ -339,6 +436,52 @@
     }
     select{
         width: 150px;
+    }
+    #calendarBase {
+        display: flex;
+        margin: 20px;
+    }
+    #calendar {
+        width: 100%;
+        font-family: "lato", sans-serif;
+        font-weight: 400;
+    }
+    .navBase{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 98%;
+        background: #2b2b2b;
+        color: whitesmoke;
+    }
+    .weekdays{
+        font-family: "lato", sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        background-color: #999;
+        color: black;
+        width: 14%;
+        padding: 20px 5px 20px 5px;
+    }
+    .dayDisable {
+        width: 14%;
+		padding: 30px 5px 30px 5px;
+    }
+    .daysCal {
+        display: flex;
+        flex-direction: column;
+    }
+    .calBtn {
+        background: #2b2b2b;
+        border: 0px;
+        color: whitesmoke;
+
+        width: 50px;
+        height: 100%;
+    }
+    .calBtn:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.2);
     }
     .categoryLabel {
         background-color: #2b2b2b;
@@ -387,12 +530,11 @@
 		-webkit-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
 		-moz-box-shadow: -5px 7px 17px -3px rgba(0,0,0,0.75);
     }
-    /* .legendPanel{
+    .legendPanel{
         display: flex;
         justify-content: center;
         flex-direction: column;
         text-align: center;
-        margin-right: 30px;
 
         padding: 10px;
         border-radius: 10px;
@@ -414,7 +556,7 @@
         margin-right: 5px;
         margin-left: 0;
         border: 1px solid #999;
-    } */
+    }
     .arrowBtn{
         font-family: 'Oswald';
         font-weight: 400;
@@ -459,8 +601,8 @@
     #fieldname{
         /* font-family: 'Helvetica Neue', Helvetica, Arial; */
         font-family: "lato", sans-serif;
-        font-size: 14px;
         font-weight: 400;
+        font-size: 14px;
         line-height: 40px;
         color: whitesmoke;
         background: #2b2b2b;

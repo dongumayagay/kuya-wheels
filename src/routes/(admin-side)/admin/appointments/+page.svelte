@@ -1,7 +1,9 @@
 <script>
     import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc, documentId } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
+    import { sendEmail } from "$lib/utils.js"
     import { onDestroy } from "svelte"
+    import { page } from '$app/stores'
     // import { jsPDF } from 'jspdf'
 
     let search 
@@ -9,23 +11,56 @@
     let searchLower 
     let sortStatus = ""
     let appointments = null
-    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'), limit(15))
+    let appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
     let listOfBooking = []
+
+    let currentPage = 1;
+	let pageSize = 10;
+	let totalRecords = 1;
+	let totalPages = 0;
 
     export let statusNP = "No payment";
     export let statusP = "Paid"
 
-    async function getAppointments() {
+    async function getAppointments(appointmentQuery, page, pageSize) {
+        const startIndex = (page - 1) * pageSize;
+	    const endIndex = startIndex + pageSize;
+
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
-            listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
+            listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()})).slice(startIndex, endIndex)
         })
         onDestroy(() => unsubscribe())
+    }
+    async function resendEmail(email, id) {
+        const choice = confirm("Resend Email to " + email + "?")
+		console.log(choice)
+
+		if (choice) {
+			await sendEmail({
+                to: email,
+                subject: 'Appointment Status Link',
+                html: `
+                <h1>Hello,</h1>
+                <h3>
+                    (This is a Resend from the Admin)
+                    Your booking for Kuya Wheels Driving School has been confirmed. 
+                    You can check the status of your booking here: 
+                </h3>
+                <a href="${$page.url.origin}/book/${id}">Appointment Status</a>
+                <br>
+                <h4>
+                    For more inquiries, please do contact us at kuyawheelsmain@gmail.com
+                </h4>
+                `
+            })
+            alert("Email sent successfully")
+		}
+        
     }
     async function clearFilter() {
         appointmentQuery = query(collection(db, "bookings"), orderBy("date", 'asc'))
         searchValue = null
         search = "date"
-        sort = "date"
         sortStatus = ""
     }
     async function searchByDate() {
@@ -40,7 +75,17 @@
             appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', false), orderBy("date", 'asc'))
         }
     }
-    $: getAppointments(appointmentQuery)
+    $: {getAppointments(appointmentQuery, currentPage, pageSize)
+        const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
+            totalRecords = querySnapshot.docs.length
+            totalPages = Math.ceil(totalRecords / pageSize)
+        })
+        onDestroy(() => unsubscribe())
+    }
+    function gotoPages(page) {
+        currentPage = page
+    }
+
 </script>
 
 <h1 style="margin:5px 0 5px 0;text-align:center;">Appointments</h1>
@@ -89,6 +134,7 @@
             <th>Contact No.</th>
             <th>Payment Status</th>
             <th>Course</th>
+            <th></th>
             </tr>
             {#each listOfBooking as item}
                 <tr id="fields">
@@ -112,11 +158,36 @@
                         {/if}
                     </td>
                     <td>{item.course}</td>
+                    <td><button on:click={resendEmail(item.email, item.id)} id="resendEmailBtn">Resend</button></td>
                 </tr>
             {/each}
         </table>
 {/if}
+<div id="paginationBase">
+    {#if currentPage > 1}
+        <button class="directBtn" on:click={() => gotoPages(currentPage - 1)}>
+            Previous
+        </button>
+	{/if}
 
+	{#each Array.from({ length: totalPages }, (_, i) => i + 1) as page}
+		{#if page === currentPage}
+            <button class="currentBtn">{page}</button>
+		{:else if (page >= currentPage - 2 && page <= currentPage + 2) || page === totalPages || page === 1}
+            <button class="numBtn" on:click={() => gotoPages(page)}>
+                {page}
+            </button>
+		{:else if page === currentPage - 3 || page === currentPage + 3}
+            <span class="dotdotdot">...</span>
+		{/if}
+	{/each}
+
+	{#if currentPage < totalPages}
+        <button class="directBtn" on:click={() => gotoPages(currentPage + 1)}>
+            Next
+        </button>
+	{/if}
+</div>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
     @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -200,5 +271,48 @@
         font-family: "Helvetica Neue", Helvetica, Arial;
         text-align: center;
         padding: 6px 12px;
+    }
+    #resendEmailBtn {
+        border: 0;
+        border-radius: 5px;
+        color: whitesmoke;
+        padding: 5px;
+        background-color: #4CAF50;
+    }
+    #resendEmailBtn:hover{
+        background-color: #11ac16;
+        cursor: pointer;
+    }
+
+    .currentBtn, .numBtn, .directBtn {
+        cursor: pointer;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid rgba(0,0,0,0.46);
+        border-radius: 5px;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+    #paginationBase {
+        margin: 10px auto 20px auto;
+        display: flex;
+    }
+    .directBtn {
+        cursor: pointer;
+        border: 0;
+        background-color: rgba(0,0,0,0.6);
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: whitesmoke;
+    }
+    .currentBtn {
+        color: whitesmoke;
+        background-color: rgba(0,0,0,0.6);
+        border: 0;
+    }
+    .dotdotdot {
+        padding: 5px;
+        margin-left: 3px;
+        margin-right: 3px;
     }
 </style>

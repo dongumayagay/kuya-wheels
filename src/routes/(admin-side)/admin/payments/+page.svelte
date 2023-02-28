@@ -68,6 +68,7 @@
             <th>Date Paid</th>
             <th>Amount</th>
             <th>Payment Method</th>
+            <th>Ref No.</th>
             </tr>
             {#each listOfBooking as item}
                 <tr id="fields">
@@ -87,6 +88,7 @@
                     <td>{item.datePaid}</td>
                     <td>{"P"+item.amount}</td>
                     <td>{item.payMethod}</td>
+                    <td>{item.paymentReferrencenumber}</td>
                 </tr>
             {/each}
         </table>
@@ -146,10 +148,12 @@
         color: whitesmoke;
         background: #2b2b2b;
 
+        font-size: 13px;
         letter-spacing: 0.03em;
         padding: 20px
     }
     #fields {
+        font-size: 12.5px;
         display: table-row;
         background: #f6f6f6;
         line-height: 30px;
