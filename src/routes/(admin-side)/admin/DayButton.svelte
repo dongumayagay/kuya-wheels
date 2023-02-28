@@ -14,7 +14,7 @@
 			query(collection(db, 'bookings'), where('date', '==', dateString), where("isDownpaymentPaid", "==", true))
 		);
         bookCount = querySnapshot.data().count
-        if (bookCount >= 3) {
+        if (bookCount >= 10) {
             isThereEvent = true
         }
 	}
@@ -22,7 +22,7 @@
 	$: checkIfExistingEvent(dateString);
 </script>
 
-{#if isThereEvent === true && bookCount >= 3}
+{#if isThereEvent === true && bookCount >= 10}
 	<button style="background-color: green;" class="dayBtn">{dayNumber}</button>
 	{:else}
 	<button class="dayBtn">{dayNumber}</button>

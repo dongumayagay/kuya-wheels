@@ -4,17 +4,22 @@
 	import { onDestroy } from "svelte";
     import { jsPDF } from 'jspdf'
     import DayButton from './DayButton.svelte';
-	import { dirty_components } from "svelte/internal";
-    
+
     let date =  new Date();
     let dd = String(date.getDate()).padStart(2, '0'); 
-    let ddt = String(date.getDate() + 1).padStart(2, '0'); 
+    // let ddt = String(date.getDate() + 1).padStart(2, '0'); 
     let mm = String(date.getMonth() + 1).padStart(2, '0'); 
     let yyyy = date.getFullYear(); 
     let newDate = yyyy + "-" + mm + "-" +dd;
-    let tomDate = yyyy + "-" + mm + "-" +ddt; 
     let todayBtn = "<"
     let tomorrowBtn = ">"
+
+    let d = new Date() // month is 0-based in the Date constructor
+    d.setDate(d.getDate() + 1)
+
+    let tomDate = d.toLocaleDateString('fr-CA')
+    // tomorrow.toISOString().slice(0, 10);
+    // tomorrow.toLocaleDateString('fr-CA');
 
     let appointmentQuery = query(collection(db, "bookings"), where("date", "==", newDate))
     let appointmentTomQuery = query(collection(db, "bookings"), where("date", "==", tomDate))
