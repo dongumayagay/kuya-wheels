@@ -33,7 +33,7 @@
 	async function checkifDatebooked() {
 		btnDisable = true		
 		//Checking if data has already been booked
-		const q = query(bookingsCol, where("date", "==", date))
+		const q = query(bookingsCol, where("date", "==", date), where("isDownpaymentPaid", "==", true))
 		const snapshot = await getCountFromServer(q)
 		if (snapshot.data().count >= 10) {
 			alert("The date has already been fully booked")

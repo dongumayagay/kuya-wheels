@@ -23,6 +23,7 @@
 		<a href="/admin">Dashboard</a>
 		<a href="/admin/payments">Payments</a>
 		<a href="/admin/appointments">Appointments</a>
+		<a href="/admin/createbook">Create Book</a>
 		<button on:click={logout}>Logout</button>
 	</div>
 </nav>

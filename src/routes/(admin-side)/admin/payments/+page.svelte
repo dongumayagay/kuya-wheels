@@ -11,6 +11,11 @@
     let searchValue 
     let searchLower 
 
+    let currentPage = 1;
+	let pageSize = 10;
+	let totalRecords = 1;
+	let totalPages = 0;
+
     async function clearFilter() {
         appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
         searchValue = null
@@ -20,13 +25,25 @@
         searchLower = searchValue.toLowerCase()      
         appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", "==", true), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
     }
-    async function getAppointments() {
+    async function getAppointments(appointmentQuery, page, pageSize) {
+        const startIndex = (page - 1) * pageSize;
+	    const endIndex = startIndex + pageSize;
+
         const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
-            listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()}))
+            listOfBooking = querySnapshot.docs.map((item) => ({id:item.id, ...item.data()})).slice(startIndex, endIndex)
         })
         onDestroy(() => unsubscribe())
     }
-    $: getAppointments(appointmentQuery)
+    $: {getAppointments(appointmentQuery, currentPage, pageSize)
+        const unsubscribe = onSnapshot(appointmentQuery, (querySnapshot) => {
+            totalRecords = querySnapshot.docs.length
+            totalPages = Math.ceil(totalRecords / pageSize)
+        })
+        onDestroy(() => unsubscribe())
+    }
+    function gotoPages(page) {
+        currentPage = page
+    }
 </script>
 
 <h1 style="margin:5px 0 5px 0;text-align:center;">Payments</h1>
@@ -93,7 +110,31 @@
             {/each}
         </table>
 {/if}
+<div id="paginationBase">
+    {#if currentPage > 1}
+        <button class="directBtn" on:click={() => gotoPages(currentPage - 1)}>
+            Previous
+        </button>
+	{/if}
 
+	{#each Array.from({ length: totalPages }, (_, i) => i + 1) as page}
+		{#if page === currentPage}
+            <button class="currentBtn">{page}</button>
+		{:else if (page >= currentPage - 2 && page <= currentPage + 2) || page === totalPages || page === 1}
+            <button class="numBtn" on:click={() => gotoPages(page)}>
+                {page}
+            </button>
+		{:else if page === currentPage - 3 || page === currentPage + 3}
+            <span class="dotdotdot">...</span>
+		{/if}
+	{/each}
+
+	{#if currentPage < totalPages}
+        <button class="directBtn" on:click={() => gotoPages(currentPage + 1)}>
+            Next
+        </button>
+	{/if}
+</div>
 <style>
     .functions{
         margin: 10px;
@@ -178,5 +219,36 @@
         font-family: "Helvetica Neue", Helvetica, Arial;
         text-align: center;
         padding: 6px 12px;
+    }
+    .currentBtn, .numBtn, .directBtn {
+        cursor: pointer;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid rgba(0,0,0,0.46);
+        border-radius: 5px;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+    #paginationBase {
+        margin: 10px auto 20px auto;
+        display: flex;
+    }
+    .directBtn {
+        cursor: pointer;
+        border: 0;
+        background-color: rgba(0,0,0,0.6);
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: whitesmoke;
+    }
+    .currentBtn {
+        color: whitesmoke;
+        background-color: rgba(0,0,0,0.6);
+        border: 0;
+    }
+    .dotdotdot {
+        padding: 5px;
+        margin-left: 3px;
+        margin-right: 3px;
     }
 </style>
