@@ -3,6 +3,7 @@
     import { db } from "$lib/firebase.js"
 	import { onDestroy } from "svelte";
     import { jsPDF } from 'jspdf'
+    import autoTable from 'jspdf-autotable';
     import DayButton from './DayButton.svelte';
 
     let date =  new Date();
@@ -138,40 +139,30 @@
     async function createReportToday(){
 
         const pdf = new jsPDF()
-        const reportQuery =  query(collection(db, "bookings"), where("date", "==", newDate))
-        const reportSnapshot = await getDocs(reportQuery)
-        let text = ""
-        reportSnapshot.forEach(bookings => {
-            text += `ID: ${bookings.id}\n`
-            text += `Last Name: ${bookings.data().lastnameDisplay}\n`
-            text += `First Name: ${bookings.data().firstnameDisplay}\n`
-            text += `Middle Name: ${bookings.data().middlename}\n`
-            text += `Payment Satus: ${bookings.data().isDownpaymentPaid}\n`
-            text += `Course: ${bookings.data().course}\n\n`
+        pdf.text('Kuya Wheels Driving School', 68, 22);
+        pdf.text('Appointment list for ' + newDate, 63, 37);
+        pdf.setFontSize(11);
+        pdf.text('San Pedro City, Laguna', 83, 27);
+        pdf.autoTable({
+            margin: {top: 50},
+            html: '#appointmentTableToday'
         })
-
-        pdf.text(text, 10, 18)
-        pdf.save("test.pdf")
+        // window.open(pdf.output('bloburl'))
+        pdf.save(`Appointment-${newDate}.pdf`)
     }
     async function createReportTomorrow(){
 
         const pdf = new jsPDF()
-        const reportQuery =  query(collection(db, "bookings"), where("date", "==", tomDate))
-        const reportSnapshot = await getDocs(reportQuery)
-        let text = ""
-        reportSnapshot.forEach(bookings => {
-            text += `ID: ${bookings.id}\n`
-            text += `Last Name: ${bookings.data().lastnameDisplay}\n`
-            text += `First Name: ${bookings.data().firstnameDisplay}\n`
-            text += `Middle Name: ${bookings.data().middlename}\n`
-            text += `Payment Satus: ${bookings.data().isDownpaymentPaid}\n`
-            text += `Course: ${bookings.data().course}\n\n`
+        pdf.text('Kuya Wheels Driving School', 68, 22);
+        pdf.text('Appointment list for ' + tomDate, 63, 37);
+        pdf.setFontSize(11);
+        pdf.text('San Pedro City, Laguna', 83, 27);
+        pdf.autoTable({
+            margin: {top: 50},
+            html: '#appointmentTableToday'
         })
-
-        pdf.text(text, 10, 18)
-        pdf.save("test.pdf")
-
-        pdf.table()
+        // window.open(pdf.output('bloburl'))
+        pdf.save(`Appointment-${tomDate}.pdf`)
     }
 
     getTomorrowBookingcount()
