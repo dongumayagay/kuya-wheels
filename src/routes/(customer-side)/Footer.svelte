@@ -17,7 +17,7 @@
 	</div>
     <div class="footerContact">
         <h3>Address</h3>
-        <p>Brgy, 1455 A National HighWay, San Pedro, 4023 Laguna</p>
+        <p>2nd Floor JRJ Building, 1455 A Brgy. Nueva, National HighWay, San Pedro, Laguna, Philippines</p>
         <br>
 	</div>
     <hr>
@@ -50,4 +50,10 @@
     hr {
         border: 1px solid whitesmoke;
     }
+
+    @media only screen and (min-width: 320px) and (max-width: 700px)  {
+		footer {
+            flex-direction: column;
+        }
+	}
 </style>

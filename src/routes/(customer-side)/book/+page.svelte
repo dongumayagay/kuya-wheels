@@ -93,19 +93,18 @@
 		
 		<h1 style="margin-bottom: 10px;">Available Course/s:</h1>
 		<div>
-			<select>
+			<select style="width: 100%;">
 				<option value="Practical Driving Course 3" selected>Practical Driving Course 3</option>
 			</select> 
 		</div>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
 			3,500kg but not exceeding 12,000kg.<br><br>
-			The course costs ₱5,000.00<br><br>
 			Requirements to bring:<br>
 			- Ballpen<br>
 			- Notebook<br>
 			- 1pc 2x2 picture<br>
 			- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a 
-			period of at least one (1) year prior to the application
+			period of at least one (4) year prior to the application
 		</h2>
 	</div>
 
@@ -143,6 +142,9 @@
 					<label for="">Email Address</label>
 					<input type="email" placeholder="Enter your Email" bind:value={email} required>
 				</div>
+				
+			</div>
+			<div class="row-input">
 				<div class="column-input">
 					<label for="">Appointment Date</label>
 					<input type="date" bind:value={date} required 
@@ -153,16 +155,12 @@
 					}).format(new Date(Date.now() + 3600 * 1000 * 24))}
 					>
 				</div>
-				
-			</div>
-			<div class="row-input">
 				<div class="column-input">
 					<label for="cars">Course to take:</label>
 					<select name="course" bind:value={coursetaken} required>
 						<option value="PDC 3">Practical Driving Course 3</option>
 					</select>
 				</div>
-
 			</div>
 		</div>
 		<br>
@@ -190,7 +188,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-evenly;
-		padding: 30px;
+		padding: 20px 10px 20px 10px;
 
 	}
 	h1{
@@ -236,14 +234,16 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: flex-start;
+		justify-content: space-evenly;
 		margin-top: 10px;
 	}
 	.column-input{
-		margin-right: 30px;
+		margin-left: 15px;
+		margin-right: 15px;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: center;
 	}
 	input::placeholder{
 		font-family: 'Oswald';
@@ -251,7 +251,6 @@
 	}
 	select, input {
 		margin: 5px;
-		width: 200px;
 		width: 100%;
 		padding: 8px;	
 	}
@@ -301,5 +300,77 @@
 	}
 	#otpBtn {
 		width: auto;
+	}
+
+	@media only screen and (min-width: 320px) and (max-width: 700px) {
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 30px 10px 30px 10px;
+		}
+		.courses{
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		.courses h1 {
+			margin-top: 0;
+			font-size: 20px;
+		}
+		.courses h2 {
+			font-size: 15px;
+		}
+		#aform {
+			margin-top: 30px;
+			width: 100%;
+		}
+		#aform h1 {
+			font-size: 20px;
+		}
+		#aform label {
+			font-size: 15px;
+		}
+		select, input {
+			width: 100%;
+		}.row-input {
+			flex-direction: column;
+			padding: 0;
+		}
+	}
+	@media only screen and (min-width: 701px) and (max-width: 1240px) {
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 30px 10px 30px 10px;
+		}
+		.courses{
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		.courses h1 {
+			margin-top: 0;
+			font-size: 30px;
+		}
+		.courses h2 {
+			font-size: 25px;
+		}
+		#aform {
+			margin-top: 30px;
+			width: 100%;
+		}
+		#aform h1 {
+			font-size: 30px;
+		}
+		#aform label {
+			font-size: 20px;
+		}
+		select, input {
+			width: 100%;
+		}
 	}
 </style>
