@@ -13,9 +13,9 @@
 		</h2>
 		<p style="margin: 20px;">
 			The owner and driving instructor of Kuya Wheels Driving School is Joselito A. Balagbis, commonly referred to 
-			by friends as "Kuya Joy". His career in the automotive industry started in 1994 when he became a Stencil Boy for 
+			by friends as "Kuya Joey". His career in the automotive industry started in 1994 when he became a Stencil Boy for 
 			one of the branches of the Land Transportation Office of the Philippines and worked his way up to 
-			finally become an Admin Officer for the LTO. Mr. Balagbis established Kuya Wheels driving 
+			finally become an Admin Officer for a private firm proponent under the LTO. Mr. Balagbis established Kuya Wheels driving 
 			school in December 8, 2020 because of his desire to properly teach aspiring drivers the necessary information 
 			they need before getting on the road.
 		</p>
@@ -27,7 +27,7 @@
 		<h3>CONNECT WITH US!</h3>
 		<hr>
 		<p>
-			ADDRESS: <br>Brgy, 1455 A National HighWay, San Pedro, 4023 Laguna
+			ADDRESS: <br>2nd Floor JRJ Building, 1455 A Brgy. Nueva, National HighWay, San Pedro, Laguna, Philippines
 		</p>
 		<p>
 			CONTACTS: <br>+63 969 476 3734<br>+63 992 320 9710<br>+63 915 977 7958
@@ -46,16 +46,18 @@
 	<div id="aboutPanel">
 		<div id="aboutCompany">
 			<div id="aboutLogo">
-				<img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
+				<div id="aLogos">
+					<img src="/KWDSicon.png" alt="Kuya Wheels Driving School Icon" id="logo">
+					<img src="/lto.png" alt="LTO logo" id="lto">
+				</div>
 				<h4>Our Certifications and Accreditations</h4>
-				<img src="/lto.png" alt="LTO logo" id="lto">
 			</div>
 			<h5>
 				Throughout the course of his career, Mr. Balagbis obtained his knowledge by taking the appropriate TESDA courses
 				and passing every one of them with flying colors. His ever-expanding arsenal of National Certificates are proof of his 
 				dedication to his craft. These are:
 			</h5>
-			<div style="display: flex;justify-content:space-between;text-align:left;">
+			<div id="accreds">
 				<p>
 					- NC II in DRIVING<br>- NC III in DRIVING (PASSENGER BUS/ STRAIGHT TRUCK)<br>
 					- NC III in DRIVING (ARTICULATED VEHICLE)<br>
@@ -78,7 +80,7 @@
 			<h2>Learning to drive isn't only to know how to handle a vehicle, but also to keep yourself and those around you safe. DRIVE SAFELY!</h2>
 		</div>
 	</div>
-	
+
 </div>
 
 
@@ -119,8 +121,8 @@
 	#contactForm {
 		/* border: 1px solid blue; */
 		margin: 20px;
-		margin-left: 90px;
-		margin-right: 90px;
+		margin-left: 15px;
+		margin-right: 15px;
 		display: flex;
 		flex-direction: row;
 	}
@@ -145,7 +147,18 @@
 	#aboutLogo {
 		display: flex;
 		justify-content: space-between;
-		flex-direction: row;
+		flex-direction: column;
+		
+	}
+	#aLogos {
+		display: flex;
+		justify-content: space-between;
+		padding-right: 40px;
+	}
+	#accreds {
+		display: flex;
+		justify-content:space-between;
+		text-align:left;
 	}
 	#logo{
 		width: 200px;
@@ -193,5 +206,116 @@
 
 		color: whitesmoke;
 		text-align: center;
+	}
+
+	@media only screen and (min-width: 801px) and (max-width: 1150px) {
+		#profilePicture {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		#profilePicture img{
+			width: 100%;
+			height: 100%;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		#profileForm h2 {
+			font-size: 20px;
+		}
+		#profileForm p {
+			font-size: 15px;
+		}
+		#contactForm {
+			/* border: 1px solid blue; */
+			margin: 20px;
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+		#accreds {
+			flex-direction: column;
+		}
+		#reminderMess {
+			font-size: 15px;
+			border: 2.5px dashed #ff944d;
+		}
+	}
+	@media only screen and (min-width: 320px) and (max-width: 800px) {
+		#profileForm {
+			display: flex;
+			flex-direction: column;
+		}
+		#profilePicture {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		#profilePicture img{
+			width: 100%;
+			height: 100%;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		#profileForm h2 {
+			font-size: 20px;
+		}
+		#profileForm p {
+			font-size: 15px;
+		}
+		#contactInfo{
+			border-radius: 5px;
+			margin-bottom: 10px;
+
+			font-weight: 600;
+			height: 100%;
+		}
+		#contactInfo h3 {
+			font-size: 15px;
+		}
+		#contactInfo p {
+			font-size: 15px;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		#contactForm {
+			/* border: 1px solid blue; */
+			margin: 20px;
+			margin-left: 15px;
+			margin-right: 15px;
+			display: flex;
+			flex-direction: column;
+		}
+		#contactForm h4 {
+			font-size: 20px;
+		}
+		#aboutCompany {
+			justify-content: flex-start;
+		}
+		#aboutPanel {
+			margin-left: 0;
+		}
+		#aboutCompany h5 {
+			font-size: 15px;
+		}
+		#aboutCompany p {
+			font-size: 10px;
+		}
+		#aLogos {
+			justify-content: space-between;
+			padding-right: 15px;
+		}
+		#accreds {
+			flex-direction: column;
+		}
+		#logo{
+			width: 100px;
+			height: 60px;
+		}
+		#lto {
+			width: 60px;
+			height: 60px;
+		}
+		#reminderMess {
+			font-size: 10px;
+			border: 2px dashed #ff944d;
+		}
 	}
 </style>
