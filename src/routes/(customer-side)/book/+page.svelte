@@ -116,12 +116,12 @@
 			<div class="row-input">
 				<div class="column-input">
 					<label for="">First Name</label>
-					<input type="text" placeholder="Enter your first name" bind:value={fname} required>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your first name" bind:value={fname} required>
 				</div>	
 			
 				<div class="column-input">
 					<label for="">Last Name</label>
-					<input type="text" placeholder="Enter your last name" bind:value={lname} required>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your last name" bind:value={lname} required>
 				</div>	
 				
 			</div>
@@ -129,7 +129,7 @@
 			<div class="row-input">
 				<div class="column-input">
 					<label for="">Middle Name (Optional)</label>
-					<input type="text" placeholder="Enter your middle name" bind:value={mname}>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your middle name" bind:value={mname}>
 				</div>
 				<div class="column-input">
 					<label for="">Contact Number</label>
