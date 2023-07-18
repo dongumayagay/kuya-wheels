@@ -116,12 +116,12 @@
 			<div class="row-input">
 				<div class="column-input">
 					<label for="">First Name</label>
-					<input type="text" placeholder="Enter your first name" bind:value={fname} required>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your first name" bind:value={fname} required>
 				</div>	
 			
 				<div class="column-input">
 					<label for="">Last Name</label>
-					<input type="text" placeholder="Enter your last name" bind:value={lname} required>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your last name" bind:value={lname} required>
 				</div>	
 				
 			</div>
@@ -129,7 +129,7 @@
 			<div class="row-input">
 				<div class="column-input">
 					<label for="">Middle Name (Optional)</label>
-					<input type="text" placeholder="Enter your middle name" bind:value={mname}>
+					<input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter your middle name" bind:value={mname}>
 				</div>
 				<div class="column-input">
 					<label for="">Contact Number</label>
@@ -163,6 +163,11 @@
 				</div>
 			</div>
 		</div>
+		<div id="dataPrivacyRow">
+			<input type="checkbox" required>
+			<label for=""> Data privacy stuff <a href="https://www.w3schools.com" target="_blank" rel="noopener noreferrer">here</a> </label><br>
+		</div>
+
 		<br>
 		<button disabled={btnDisable}>Submit</button>
 	</div>
@@ -209,7 +214,6 @@
 		flex-direction: column;
 		align-items: center;
 
-		width: 560px;
 		padding: 10px;
 		
 		border-radius: 10px;
@@ -224,10 +228,13 @@
 		flex-direction: column;
 		align-items: center;
 		
-		width: 90%;
+		width: 100%;
 		padding: 5px;
 		color: whitesmoke;
 		text-align: center;
+	}
+	#uinput input, select{
+		width: 100%;
 	}
 	.row-input{
 		width: 90%;
@@ -236,6 +243,11 @@
 		align-items: center;
 		justify-content: space-evenly;
 		margin-top: 10px;
+	}
+	#dataPrivacyRow{
+		display: flex;
+		flex-direction: row;
+		text-align: center;
 	}
 	.column-input{
 		margin-left: 15px;
@@ -251,7 +263,6 @@
 	}
 	select, input {
 		margin: 5px;
-		width: 100%;
 		padding: 8px;	
 	}
 	
@@ -332,9 +343,10 @@
 		#aform label {
 			font-size: 15px;
 		}
-		select, input {
+		#uinput input, select{
 			width: 100%;
-		}.row-input {
+		}
+		.row-input {
 			flex-direction: column;
 			padding: 0;
 		}
@@ -369,7 +381,7 @@
 		#aform label {
 			font-size: 20px;
 		}
-		select, input {
+		#uinput input, select{
 			width: 100%;
 		}
 	}
