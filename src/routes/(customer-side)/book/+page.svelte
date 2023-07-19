@@ -127,7 +127,7 @@
 			- Notebook<br>
 			- 1pc 2x2 picture<br>
 			- 1 Photocopy of Professional Drivers License with RC 2 or 4 for a 
-			period of at least one (4) year prior to the application
+			period of at least one (1) year prior to the application
 		</h2>
 	</div>
 
