@@ -36,7 +36,6 @@
     </h2>
     <h2>
         • Name<br>
-        • Age<br>
         • Contact Details: Mobile Phone Number and Email address<br>
         <br>
         And such other additional information that will be required in relation with herein declared purpose and use of information
@@ -60,7 +59,7 @@
         <br>
         To process your booking and other incidental requests;<br>
         To contact you about your booking, travel, and other arrangements;<br>
-        To process your payment and/or refund;<br>
+        To process your payment;<br>
         To fulfill your bookings;<br>
         To confirm your payments; <br>
         To ensure you are correctly billed;<br>
@@ -89,7 +88,7 @@
         We may send you emails with information about your Kuya Wheels Driving School appointments. We will provide you with choices regarding our use of your Personal Information for marketing purposes. If you are no longer interested in receiving future email marketing communications from Kuya Wheels Driving School, you have several choices for opting out of future mailings:
         <br>
         <br>
-        You may unsubscribe at any time by following the directions and link included in each email marketing message we send. You may email admin@kuyawheels.com and request to be unsubscribed by including your name, email address, and the words "unsubscribe" in the subject or message body.
+        You may unsubscribe at any time by following the directions and link included in each email marketing message we send. You may email kuyawheelsdrivingschool@gmail.com and request to be unsubscribed by including your name, email address, and the words "unsubscribe" in the subject or message body.
     </h2>
     <h1>
         RIGHTS OF DATA SUBJECT
