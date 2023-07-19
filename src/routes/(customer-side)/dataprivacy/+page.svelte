@@ -100,7 +100,7 @@
         Kuya Wheels Driving School Inc.<br>
         Joselito A. Balagbis<br>
         2nd Floor JRJ Building, 1455 A Brgy. Nueva, National HighWay, San Pedro, Laguna, Philippines<br>
-        admin@kuyawheels.com <br>
+        kuyawheelsdrivingschool@gmail.com<br>
         Monday - Friday, 9:00 a.m. - 5:00 p.m.<br>
         <br>
         Kindy note that when you request for the deletion of your account, you won't be able to recover that information later.
