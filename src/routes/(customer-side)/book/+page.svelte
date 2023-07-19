@@ -188,7 +188,7 @@
 		</div>
 		<div id="dataPrivacyRow">
 			<input type="checkbox" required>
-			<label for=""> By checking this box, you are agreeing to our <a href="/dataprivacy" target="_blank" rel="noopener noreferrer">Data Privacy Policy</a>. </label><br>
+			<label for=""> I agree to Kuya Wheels Driving School's <a href="/dataprivacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. </label><br>
 		</div>
 		<br>
 		<button disabled={btnDisable}>Submit</button>
