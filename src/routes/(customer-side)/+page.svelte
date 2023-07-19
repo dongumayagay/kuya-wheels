@@ -10,7 +10,7 @@
 <div id="Form1">
 	
 	<div id="profileInfo">
-		<h1 style="text-align: center;">WELCOME TO OUR OFFICIAL WEBSITE!</h1>
+		<h1 style="text-align: center;">WELCOME TO OUR OFFICIAL WEBSITE!!!!</h1>
 		<h2>
 			Kuya Wheels Driving School offers driving education that you can count on!
 		</h2>
