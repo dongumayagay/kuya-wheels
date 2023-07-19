@@ -22,7 +22,7 @@
 	</div>
     <hr>
     <div style="text-align: center;padding:5px 5px 5px 5px;display: flex;flex-direction: column;justify-content: space-evenly;">
-        <p>Copyright © 2022 - All right reserved by Kuya Wheels Driving School</p>
+        <p>Copyright © 2023 - All rights reserved by Kuya Wheels Driving School</p>
     </div>
 </footer>
 

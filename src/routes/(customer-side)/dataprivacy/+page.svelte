@@ -10,7 +10,7 @@
         GENERAL
     </h1>
     <h2>
-        Kuya Wheels Driving School Inc. and its affiliates (also collectively referred as “Company”, “we”, “our” and “us”) established this Data Privacy Policy to show that we recognize and value your privacy rights.
+        Kuya Wheels Driving School and its affiliates (also collectively referred as “Company”, “we”, “our” and “us”) established this Data Privacy Policy to show that we recognize and value your privacy rights.
     </h2>
     <h1>
         APPLICABILITY
@@ -58,7 +58,7 @@
         <br>
         <br>
         To process your booking and other incidental requests;<br>
-        To contact you about your booking, travel, and other arrangements;<br>
+        To contact you about your booking and other arrangements;<br>
         To process your payment;<br>
         To fulfill your bookings;<br>
         To confirm your payments; <br>
@@ -67,7 +67,7 @@
         To target content on our website to more closely match your interests;<br>
         To maintain records and comply with our legal obligations;<br>
         For customer support; and<br>
-        For all other purposes necessary for the provision of travel and other incidental services pursuant to your transaction.
+        For all other purposes necessary for the provision of any other incidental services pursuant to your transaction.
     </h2>
     <h1>
         TO WHOM DO WE SHARE YOUR PERSONAL INFORMATION
@@ -97,8 +97,8 @@
         The Personal Information you have provided in the Sites shall be retained for as long as necessary to fulfill the purposes for which it was collected, to comply with our legal obligations, resolve disputes, and enforce our agreements with third parties. You may exercise your particular Right to Access, Modify and Delete the Personal Information and change marketing preferences, by contacting us through the information provided below: 
         <br>
         <br>
-        Kuya Wheels Driving School Inc.<br>
-        Joselito A. Balagbis<br>
+        <b>Kuya Wheels Driving School</b><br>
+        <b>Joselito A. Balagbis</b><br>
         2nd Floor JRJ Building, 1455 A Brgy. Nueva, National HighWay, San Pedro, Laguna, Philippines<br>
         kuyawheelsdrivingschool@gmail.com<br>
         Monday - Friday, 9:00 a.m. - 5:00 p.m.<br>
