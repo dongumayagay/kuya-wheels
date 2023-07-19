@@ -110,8 +110,9 @@
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
 			3,500kg but not exceeding 12,000kg.
 			<br>
-			<br>
-			The PDC 3 program is designed to equip you with advanced driving skills and techniques necessary for operating vehicles such as trucks, buses, or motorcycles. With a comprehensive curriculum comprising both theoretical knowledge and practical training, we ensure you develop the expertise needed to navigate Philippine roads safely and responsibly.
+		</h2>
+		<p>
+			The PDC 3 program <b>(which costs ₱5,000.00)</b> is designed to equip you with advanced driving skills and techniques necessary for operating vehicles such as trucks, buses, or motorcycles. With a comprehensive curriculum comprising both theoretical knowledge and practical training, we ensure you develop the expertise needed to navigate Philippine roads safely and responsibly.
 			<br>
 			<br>
 			During the theoretical component of the course, you will delve into essential topics such as traffic rules and regulations, defensive driving strategies, vehicle maintenance, and road safety. The practical training component is where our experienced instructors will guide you through real-life scenarios, both in controlled environments and on actual roads. You will learn advanced driving maneuvers tailored to specific vehicle categories, including handling various road conditions, navigating complex intersections, and mastering vehicle-specific tasks.
@@ -120,6 +121,8 @@
 			Completing the Practical Driving Course 3 is a mandatory step in the process of obtaining a professional driver's license for your desired vehicle category. Our goal is to ensure that you have the necessary skills and knowledge to operate vehicles safely, not only for your personal well-being but also for the safety of others on the road.
 			<br>
 			<br>
+		</p>
+		<h2>
 			Requirements to bring:<br>
 			- Ballpen<br>
 			- Notebook<br>
