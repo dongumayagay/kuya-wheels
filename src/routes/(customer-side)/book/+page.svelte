@@ -120,7 +120,6 @@
 			<br>
 			Completing the Practical Driving Course 3 is a mandatory step in the process of obtaining a professional driver's license for your desired vehicle category. Our goal is to ensure that you have the necessary skills and knowledge to operate vehicles safely, not only for your personal well-being but also for the safety of others on the road.
 			<br>
-			<br>
 		</p>
 		<h2>
 			Requirements to bring:<br>
