@@ -76,8 +76,18 @@
 			</h3>
 			<a href="${$page.url.origin}/book/${createdBooking.id}">Appointment Status</a>
 			<br>
+			<h3>
+				Once enrolled, you will benefit from a comprehensive curriculum that covers both theoretical knowledge 
+				and practical training. Our experienced instructors will guide you through essential topics such as traffic 
+				rules and regulations, defensive driving strategies, vehicle maintenance, and road safety. 
+				Through hands-on practice, you will gain confidence in handling specific vehicle categories, mastering advanced 
+				maneuvers, and navigating various road conditions.
+			</h3>
+			<br>
 			<h4>
-				For more inquiries, please do contact us at kuyawheelsmain@gmail.com
+				If you have any questions or require further information, please don't hesitate to reach out to kuyawheelsmain@gmail.com. 
+				<br>
+				We are here to assist you throughout the application process and address any concerns you may have.
 			</h4>
 			`
 		})
@@ -98,7 +108,18 @@
 			</select> 
 		</div>
 		<h2> Practical Driving Course (PDC) Restriction 3 - refers to vehicles used for the carriage of goods and having a maximum gross vehicle weight exceeding 
-			3,500kg but not exceeding 12,000kg.<br><br>
+			3,500kg but not exceeding 12,000kg.
+			<br>
+			<br>
+			The PDC 3 program is designed to equip you with advanced driving skills and techniques necessary for operating vehicles such as trucks, buses, or motorcycles. With a comprehensive curriculum comprising both theoretical knowledge and practical training, we ensure you develop the expertise needed to navigate Philippine roads safely and responsibly.
+			<br>
+			<br>
+			During the theoretical component of the course, you will delve into essential topics such as traffic rules and regulations, defensive driving strategies, vehicle maintenance, and road safety. The practical training component is where our experienced instructors will guide you through real-life scenarios, both in controlled environments and on actual roads. You will learn advanced driving maneuvers tailored to specific vehicle categories, including handling various road conditions, navigating complex intersections, and mastering vehicle-specific tasks.
+			<br>
+			<br>
+			Completing the Practical Driving Course 3 is a mandatory step in the process of obtaining a professional driver's license for your desired vehicle category. Our goal is to ensure that you have the necessary skills and knowledge to operate vehicles safely, not only for your personal well-being but also for the safety of others on the road.
+			<br>
+			<br>
 			Requirements to bring:<br>
 			- Ballpen<br>
 			- Notebook<br>
@@ -165,11 +186,13 @@
 		</div>
 		<div id="dataPrivacyRow">
 			<input type="checkbox" required>
-			<label for=""> Data privacy stuff <a href="https://www.w3schools.com" target="_blank" rel="noopener noreferrer">here</a> </label><br>
+			<label for=""> By checking this box, you are agreeing to our <a href="/dataprivacy" target="_blank" rel="noopener noreferrer">Data Privacy Policy</a>. </label><br>
 		</div>
-
 		<br>
 		<button disabled={btnDisable}>Submit</button>
+		<p id="disclaimer">
+			Disclaimer: You will need to make a down payment of ₱500 for your booking to be finalized.
+		</p>
 	</div>
 </form>
 {#if btnDisable === true}
@@ -213,6 +236,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		height: 100%;
 
 		padding: 10px;
 		
@@ -248,6 +272,11 @@
 		display: flex;
 		flex-direction: row;
 		text-align: center;
+	}
+	#disclaimer{
+		text-align: center;
+		margin-left: 15%;
+		margin-right: 15%;
 	}
 	.column-input{
 		margin-left: 15px;
