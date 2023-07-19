@@ -2,6 +2,8 @@
     import { getDocs, query, collection, serverTimestamp, onSnapshot, QuerySnapshot, doc, where, orderBy, limit, getDoc } from "firebase/firestore"
     import { db } from "$lib/firebase.js"
     import { onDestroy } from "svelte"
+    import { jsPDF } from 'jspdf'
+    import autoTable from 'jspdf-autotable';
 
     let appointments = null
     let appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
@@ -16,6 +18,8 @@
 	let totalRecords = 1;
 	let totalPages = 0;
 
+    let pdfName
+
     async function clearFilter() {
         appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", '==', true), orderBy("date", 'asc'))
         searchValue = null
@@ -23,6 +27,7 @@
     }
     async function searchByDate() {
         searchLower = searchValue.toLowerCase()      
+        pdfName = searchValue
         appointmentQuery = query(collection(db, "bookings"), where("isDownpaymentPaid", "==", true), where(search, '>=', searchLower),  where(search, '<=', searchLower + '~'), orderBy(search, 'asc'))
     }
     async function getAppointments(appointmentQuery, page, pageSize) {
@@ -43,6 +48,25 @@
     }
     function gotoPages(page) {
         currentPage = page
+    }
+
+    async function createReportToday(){
+
+        const pdf = new jsPDF('landscape')
+        pdf.text('Kuya Wheels Driving School', 120, 22);
+        pdf.text('Payment list for ' + pdfName, 123, 37);
+        pdf.setFontSize(11);
+        pdf.text('San Pedro City, Laguna', 136, 27);
+        pdf.autoTable({
+            margin: {top: 50},
+            html: '#paymentTable'
+        })
+        // window.open(pdf.output('bloburl'))
+        if (searchValue == null) {
+            pdf.save(`Payments-No-Filter.pdf`)
+        } else {
+            pdf.save(`Payments-${pdfName}.pdf`)
+        }
     }
 </script>
 
@@ -68,6 +92,9 @@
         {/if}
     </div>
     <button on:click={clearFilter} id="clearBtn">Clear Filter</button>
+    <div id="printPdf">
+        <button id="print" on:click={createReportToday}>Print as PDF</button>
+    </div>
 </div>    
 {#if listOfBooking === null}
     <h1>loading payments</h1>
@@ -251,4 +278,18 @@
         margin-left: 3px;
         margin-right: 3px;
     }
+
+    #print{
+        font-family: 'Oswald';
+        font-weight: 400;
+        font-size: 30px;
+        color: whitesmoke;
+
+        background-color: rgb(143, 0, 0);
+        border: 1px solid rgb(54, 26, 26);
+        border-radius: 5px;
+    }
+	#print:hover {
+		background-color: #c70000;
+	}
 </style>
