@@ -21,6 +21,7 @@
 <nav id="adminTools">
 	<div class="link-container">
 		<a href="/admin">Dashboard</a>
+		<a href="/admin/reports">Reports</a>
 		<a href="/admin/payments">Payments</a>
 		<a href="/admin/appointments">Appointments</a>
 		<a href="/admin/createbook">Create Book</a>
@@ -97,4 +98,10 @@
 		text-decoration: underline;
 		cursor: pointer;
 	}
+
+	@media print {
+		#adminTools {
+				display: none;
+			}
+		}
 </style>
