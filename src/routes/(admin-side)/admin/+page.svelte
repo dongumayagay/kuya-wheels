@@ -404,7 +404,7 @@
         </div>
     </div>
 </div>
-
+<hr>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Lato');
 
