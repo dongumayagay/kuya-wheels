@@ -50,24 +50,24 @@
         currentPage = page
     }
 
-    async function createReportToday(){
+    // async function createReportToday(){
 
-        const pdf = new jsPDF('landscape')
-        pdf.text('Kuya Wheels Driving School', 120, 22);
-        pdf.text('Payment list for ' + pdfName, 123, 37);
-        pdf.setFontSize(11);
-        pdf.text('San Pedro City, Laguna', 136, 27);
-        pdf.autoTable({
-            margin: {top: 50},
-            html: '#paymentTable'
-        })
-        // window.open(pdf.output('bloburl'))
-        if (searchValue == null) {
-            pdf.save(`Payments-No-Filter.pdf`)
-        } else {
-            pdf.save(`Payments-${pdfName}.pdf`)
-        }
-    }
+    //     const pdf = new jsPDF('landscape')
+    //     pdf.text('Kuya Wheels Driving School', 120, 22);
+    //     pdf.text('Payment list for ' + pdfName, 123, 37);
+    //     pdf.setFontSize(11);
+    //     pdf.text('San Pedro City, Laguna', 136, 27);
+    //     pdf.autoTable({
+    //         margin: {top: 50},
+    //         html: '#paymentTable'
+    //     })
+    //     // window.open(pdf.output('bloburl'))
+    //     if (searchValue == null) {
+    //         pdf.save(`Payments-No-Filter.pdf`)
+    //     } else {
+    //         pdf.save(`Payments-${pdfName}.pdf`)
+    //     }
+    // }
 </script>
 
 <h1 style="margin:5px 0 5px 0;text-align:center;">Payments</h1>
@@ -92,9 +92,9 @@
         {/if}
     </div>
     <button on:click={clearFilter} id="clearBtn">Clear Filter</button>
-    <div id="printPdf">
+    <!-- <div id="printPdf">
         <button id="print" on:click={createReportToday}>Print as PDF</button>
-    </div>
+    </div> -->
 </div>    
 {#if listOfBooking === null}
     <h1>loading payments</h1>
@@ -279,7 +279,7 @@
         margin-right: 3px;
     }
 
-    #print{
+    /* #print{
         font-family: 'Oswald';
         font-weight: 400;
         font-size: 30px;
@@ -291,5 +291,5 @@
     }
 	#print:hover {
 		background-color: #c70000;
-	}
+	} */
 </style>
