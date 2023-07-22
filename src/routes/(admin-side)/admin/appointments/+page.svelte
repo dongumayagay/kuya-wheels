@@ -40,17 +40,37 @@
                 to: email,
                 subject: 'Appointment Status Link',
                 html: `
-                <h1>Hello,</h1>
+                <h1>Hello Applicant!</h1>
                 <h3>
-                    (This is a Resend from the Admin)
+                    (This is a Reminder from the Admin of Kuya Wheels Driving School)
+                    <br>
                     Your booking for Kuya Wheels Driving School has been confirmed. 
-                    You can check the status of your booking here: 
+                    You can check the status of your booking here:
                 </h3>
-                <a href="${$page.url.origin}/book/${id}">Appointment Status</a>
+                <a href="${$page.url.origin}/book/${id}"><h1>Appointment Status</h1></a>
                 <br>
-                <h4>
-                    For more inquiries, please do contact us at kuyawheelsmain@gmail.com
-                </h4>
+                <h3>
+				Thank you for showing interest in our program, which is designed to equip individuals like yourself with
+				advanced driving skills and techniques for specific vehicle categories.
+				<br>
+				The PDC 3 is an excellent opportunity for you
+				to enhance your driving abilities and obtain a professional driver's license in the Philippines.
+				<br>
+				Once enrolled, you will benefit from a comprehensive curriculum that covers both theoretical knowledge 
+				and practical training. 
+				<br>
+				Our experienced instructors will guide you through essential and important topics such as traffic 
+				rules and regulations, defensive driving strategies, vehicle maintenance, and road safety.
+				<br>
+				Through hands-on practice, you will gain confidence in handling specific vehicle categories, mastering advanced 
+				maneuvers, and navigating various road conditions.
+			</h3>
+			<br>
+			<h4>
+				We are here to assist you throughout the application process and address any concerns you may have.
+				<br>
+				If you have any questions or require further information, please don't hesitate to reach out to kuyawheelsmain@gmail.com. 
+			</h4>
                 `
             })
             alert("Email sent successfully")
