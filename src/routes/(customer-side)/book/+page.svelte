@@ -69,25 +69,35 @@
 			to: email,
 			subject: 'Appointment Status Link',
 			html: `
-			<h1>Hello,</h1>
-			<h3>
-				Your booking for Kuya Wheels Driving School has been confirmed. 
+			<h1>Hello Applicant!</h1>
+			<h2>
+				Your booking for Kuya Wheels Driving School has been confirmed.
+				<br>
 				You can check the status of your booking here: 
-			</h3>
-			<a href="${$page.url.origin}/book/${createdBooking.id}">Appointment Status</a>
+			</h2>
+			<a href="${$page.url.origin}/book/${createdBooking.id}"><h1>Appointment Status</h1></a>
 			<br>
 			<h3>
+				Thank you for showing interest in our program, which is designed to equip individuals like yourself with
+				advanced driving skills and techniques for specific vehicle categories.
+				<br>
+				The PDC 3 is an excellent opportunity for you
+				to enhance your driving abilities and obtain a professional driver's license in the Philippines.
+				<br>
 				Once enrolled, you will benefit from a comprehensive curriculum that covers both theoretical knowledge 
-				and practical training. Our experienced instructors will guide you through essential topics such as traffic 
-				rules and regulations, defensive driving strategies, vehicle maintenance, and road safety. 
+				and practical training. 
+				<br>
+				Our experienced instructors will guide you through essential topics such as traffic 
+				rules and regulations, defensive driving strategies, vehicle maintenance, and road safety.
+				<br>
 				Through hands-on practice, you will gain confidence in handling specific vehicle categories, mastering advanced 
 				maneuvers, and navigating various road conditions.
 			</h3>
 			<br>
 			<h4>
-				If you have any questions or require further information, please don't hesitate to reach out to kuyawheelsmain@gmail.com. 
-				<br>
 				We are here to assist you throughout the application process and address any concerns you may have.
+				<br>
+				If you have any questions or require further information, please don't hesitate to reach out to kuyawheelsmain@gmail.com. 
 			</h4>
 			`
 		})
@@ -186,15 +196,16 @@
 				</div>
 			</div>
 		</div>
+		<p id="disclaimer">
+			Disclaimer: You will need to make a down payment of ₱500 for your booking to be finalized.
+		</p>
 		<div id="dataPrivacyRow">
 			<input type="checkbox" required>
 			<label for=""> I agree to Kuya Wheels Driving School's <a href="/dataprivacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. </label><br>
 		</div>
 		<br>
 		<button disabled={btnDisable}>Submit</button>
-		<p id="disclaimer">
-			Disclaimer: You will need to make a down payment of ₱500 for your booking to be finalized.
-		</p>
+
 	</div>
 </form>
 {#if btnDisable === true}
