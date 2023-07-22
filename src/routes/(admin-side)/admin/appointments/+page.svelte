@@ -45,7 +45,7 @@
                     (This is a Reminder from the Admin of Kuya Wheels Driving School)
                     <br>
                     Your booking for Kuya Wheels Driving School has been confirmed. 
-                    You can check the status of your booking here: 
+                    You can check the status of your booking here:
                 </h3>
                 <a href="${$page.url.origin}/book/${id}"><h1>Appointment Status</h1></a>
                 <br>
@@ -59,7 +59,7 @@
 				Once enrolled, you will benefit from a comprehensive curriculum that covers both theoretical knowledge 
 				and practical training. 
 				<br>
-				Our experienced instructors will guide you through essential topics such as traffic 
+				Our experienced instructors will guide you through essential and important topics such as traffic 
 				rules and regulations, defensive driving strategies, vehicle maintenance, and road safety.
 				<br>
 				Through hands-on practice, you will gain confidence in handling specific vehicle categories, mastering advanced 
